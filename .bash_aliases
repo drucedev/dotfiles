@@ -16,9 +16,3 @@ fi
 
 # Show sorted used memory of folders
 alias used='du -sch * | sort -rh'
-
-# Go to EP2-Core folder
-alias ep2='cd ~/Projects/hypoport/ep2-core'
-
-# Open Firefox Profile Manager
-alias foxprofile='/Applications/Firefox.app/Contents/MacOS/firefox-bin -P'
