@@ -1,13 +1,13 @@
-### Dotfiles
+## Dotfiles
 
 This project contains the dotfiles of my systems
 
-#### Requirements
+### Requirements
 
  - Git
  - Stow
 
-#### Installation
+### Installation
 
 ```shell
 git clone git@github.com/drucedev/dotfiles.git
