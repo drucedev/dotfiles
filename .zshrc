@@ -7,19 +7,6 @@ NVM_HOMEBREW=$(brew --prefix nvm)
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-#Auto-Complete function for AWSume
-fpath=(~/.awsume/zsh-autocomplete/ $fpath)
-_awsume() {
-    local cur prev opts
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(awsume-autocomplete)
-    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-    return 0
-}
-complete -F _awsume awsume
-
 # Aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
