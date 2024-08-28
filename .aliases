@@ -16,3 +16,6 @@ fi
 
 # Show sorted used memory of folders
 alias used='du -sch * | sort -rh'
+
+#AWSume alias to source the AWSume script
+alias awsume="source awsume"
