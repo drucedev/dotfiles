@@ -1,6 +1,3 @@
-# Autocompletion in zsh for brew
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
 # NVM plugin config
 NVM_HOMEBREW=$(brew --prefix nvm)
 
@@ -12,9 +9,6 @@ export LANG=en_US.UTF-8
 
 # Aws Login
 [[ -f ~/.aws-login ]] && source ~/.aws-login
-
-# kubectl autocomplite
-source <(kubectl completion zsh)
 
 # Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
