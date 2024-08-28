@@ -1,0 +1,12 @@
+# Functions to easy login to aws accounts
+
+function aws-login() {
+    aws-sso-util login
+    awsume-choice
+}
+
+function awsume-choice() {
+    choice="$(FZF_DEFAULT_COMMAND='awsume -l' fzf --ansi)"
+    choice="$(echo "$choice" | awk '{ print $1 }')"
+    awsume $choice
+}
