@@ -116,7 +116,7 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
 
 # Aws Login
 [[ -f ~/.aws-login ]] && source ~/.aws-login
