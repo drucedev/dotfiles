@@ -46,6 +46,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' manu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Homebrew Config
 HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
@@ -53,17 +54,17 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 # Promt styling
 #RPS1='$(kubectx_prompt_info)'
 
-# Shell integrations
-eval "$(fzf --zsh)"
-
+# Dependencies
 # Aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
-
 # Aws Login
 [[ -f ~/.aws-login ]] && source ~/.aws-login
-
 # Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # NVM plugin config
 NVM_HOMEBREW=$(brew --prefix nvm)
