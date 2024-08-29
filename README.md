@@ -7,6 +7,11 @@ This project contains the dotfiles of my systems
  - Git
  - Stow
 
+ ### List of additional packages which is configured in .zshrc
+
+ - fzf
+ - zoxide
+
 ### Installation
 
 ```shell
