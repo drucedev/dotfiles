@@ -16,8 +16,18 @@ zinit light zsh-users/zsh-autosuggestions
 # Auto load completions
 autoload -U compinit && compinit
 
-# NVM plugin config
-NVM_HOMEBREW=$(brew --prefix nvm)
+# History
+HISTSIZE=5000
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -31,8 +41,13 @@ export LANG=en_US.UTF-8
 # Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
 
+# NVM plugin config
+NVM_HOMEBREW=$(brew --prefix nvm)
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
+# This loads nvm
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
 
 # Homebrew Config
 HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
@@ -42,4 +57,3 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
