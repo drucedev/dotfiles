@@ -8,6 +8,14 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+
+# Auto load completions
+autoload -U compinit && compinit
+
 # NVM plugin config
 NVM_HOMEBREW=$(brew --prefix nvm)
 
