@@ -16,9 +16,17 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit snippet OMZP::git
+zinit snippet OMZP::brew
+zinit snippet OMZP::gradle
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::sdk
 
 # Auto load completions
 autoload -U compinit && compinit
+
+zinit cdreplay -q
 
 # History
 HISTSIZE=5000
@@ -41,6 +49,9 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Homebrew Config
 HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
+
+# Promt styling
+#RPS1='$(kubectx_prompt_info)'
 
 # Shell integrations
 eval "$(fzf --zsh)"
