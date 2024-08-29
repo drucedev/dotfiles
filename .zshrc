@@ -1,3 +1,6 @@
+# Set language environment
+export LANG=en_US.UTF-8
+
 # Directory for storing zinit and it's plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -29,8 +32,9 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
