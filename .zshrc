@@ -1,3 +1,13 @@
+# Directory for storing zinit and it's plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download zinit if it's not there
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+# Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
 # NVM plugin config
 NVM_HOMEBREW=$(brew --prefix nvm)
 
@@ -14,7 +24,7 @@ export LANG=en_US.UTF-8
 [[ -f ~/.secrets ]] && source ~/.secrets
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
 
 # Homebrew Config
 HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
@@ -24,4 +34,4 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
