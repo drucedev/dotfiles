@@ -28,6 +28,13 @@ autoload -U compinit && compinit
 
 zinit cdreplay -q
 
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/tokyonight_storm.omp.json)"
+fi
+
 # History
 HISTSIZE=5000
 HISTFILE=$HOME/.zsh_history
@@ -61,10 +68,6 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 [[ -f ~/.aws-login ]] && source ~/.aws-login
 # Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
-
-# Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # NVM plugin config
 NVM_HOMEBREW=$(brew --prefix nvm)
