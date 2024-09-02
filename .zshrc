@@ -32,7 +32,7 @@ zinit cdreplay -q
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/tokyonight_storm.omp.json)"
+  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
 fi
 
 # History
