@@ -20,7 +20,6 @@ zinit snippet OMZP::git
 zinit snippet OMZP::brew
 zinit snippet OMZP::gradle
 zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
 zinit snippet OMZP::sdk
 
 # Auto load completions
