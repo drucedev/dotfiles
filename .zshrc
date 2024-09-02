@@ -32,7 +32,7 @@ zinit cdreplay -q
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
+  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/mod_catppuccin_mocha.toml)"
 fi
 
 # History
@@ -57,9 +57,6 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Homebrew Config
 HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
-
-# Promt styling
-#RPS1='$(kubectx_prompt_info)'
 
 # Dependencies
 # Aliases

@@ -1,0 +1,125 @@
+version = 2
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+
+  [[blocks.segments]]
+    type = 'os'
+    style = 'plain'
+    template = '{{ .Icon }} '
+    foreground = 'p:os'
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
+    template = '{{ .Path }} '
+    foreground = 'p:pink'
+
+    [blocks.segments.properties]
+      folder_icon = '....'
+      home_icon = '~'
+      style = 'agnoster_short'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    template = '{{ .HEAD }}'
+    foreground = 'p:lavender'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cherry_pick_icon = ' '
+      commit_icon = ' '
+      fetch_status = false
+      fetch_upstream_icon = false
+      merge_icon = ' '
+      no_commits_icon = ' '
+      rebase_icon = ' '
+      revert_icon = ' '
+      tag_icon = ' '
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    type = 'java'
+    style = 'plain'
+    foreground = 'p:closer'
+  
+  [[blocks.segments]]
+    type = 'kotlin'
+    style = 'plain'
+    foreground = 'p:closer'
+
+  [[blocks.segments]]
+    type = 'lua'
+    style = 'plain'
+    foreground = 'p:closer'
+  
+  [[blocks.segments]]
+    type = 'node'
+    style = 'plain'
+    foreground = 'p:closer'
+
+  [[blocks.segments]]
+    type = 'python'
+    style = 'plain'
+    foreground = 'p:closer'
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hide'
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    style = 'plain'
+    foreground = 'yellow'
+    background = 'transparent'
+    template = '{{ .FormattedMs }}'
+
+    [blocks.segments.properties]
+      threshold = 5000
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+  
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    foreground_templates = [
+      "{{if gt .Code 0}}red{{end}}",
+      "{{if eq .Code 0}}p:closer{{end}}",
+    ]
+    background = 'transparent'
+    template = ''
+
+[transient_prompt]
+  foreground_templates = [
+    "{{if gt .Code 0}}red{{end}}",
+    "{{if eq .Code 0}}p:closer{{end}}",
+  ]
+  background = 'transparent'
+  template = ' '
+
+[secondary_prompt]
+  foreground = 'p:closer'
+  background = 'transparent'
+  template = ' '
+
+[error_line]
+  foreground = 'red'
+  background = 'transparent'
+  template = '<#eb6f92,#286983>\ue009 </><#286983,transparent>\ue0b4</> '
+
+[palette]
+  blue = '#89B4FA'
+  closer = 'p:os'
+  lavender = '#B4BEFE'
+  os = '#ACB0BE'
+  pink = '#F5C2E7'
