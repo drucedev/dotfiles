@@ -21,6 +21,8 @@ zinit snippet OMZP::brew
 zinit snippet OMZP::gradle
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::sdk
+zinit snippet OMZP::docker
+zinit snippet OMZP::docker-compose
 
 # Auto load completions
 autoload -U compinit && compinit
