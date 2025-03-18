@@ -1,22 +1,44 @@
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
+
+[palette]
+  blue = '#89B4FA'
+  closer = 'p:os'
+  lavender = '#B4BEFE'
+  os = '#ACB0BE'
+  pink = '#F5C2E7'
+
+[secondary_prompt]
+  template = ' '
+  foreground = 'p:closer'
+  background = 'transparent'
+
+[transient_prompt]
+  template = ' '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}p:closer{{end}}']
+
+[error_line]
+  template = '<#eb6f92,#286983>\ue009 </><#286983,transparent>\ue0b4</> '
+  foreground = 'red'
+  background = 'transparent'
 
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
 
   [[blocks.segments]]
-    type = 'os'
-    style = 'plain'
     template = '{{ .Icon }} '
     foreground = 'p:os'
+    type = 'os'
+    style = 'plain'
 
   [[blocks.segments]]
-    type = 'path'
-    style = 'plain'
     template = '{{ .Path }} '
     foreground = 'p:pink'
+    type = 'path'
+    style = 'plain'
 
     [blocks.segments.properties]
       folder_icon = '....'
@@ -24,10 +46,10 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
       style = 'agnoster_short'
 
   [[blocks.segments]]
-    type = 'git'
-    style = 'plain'
     template = '{{ .HEAD }}'
     foreground = 'p:lavender'
+    type = 'git'
+    style = 'plain'
 
     [blocks.segments.properties]
       branch_icon = ' '
@@ -46,40 +68,40 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   alignment = 'right'
 
   [[blocks.segments]]
+    foreground = 'p:closer'
     type = 'java'
     style = 'plain'
-    foreground = 'p:closer'
-  
+
   [[blocks.segments]]
+    foreground = 'p:closer'
     type = 'kotlin'
     style = 'plain'
-    foreground = 'p:closer'
 
   [[blocks.segments]]
+    foreground = 'p:closer'
     type = 'lua'
     style = 'plain'
-    foreground = 'p:closer'
-  
-  [[blocks.segments]]
-    type = 'node'
-    style = 'plain'
-    foreground = 'p:closer'
 
   [[blocks.segments]]
+    foreground = 'p:closer'
+    type = 'node'
+    style = 'plain'
+
+  [[blocks.segments]]
+    foreground = 'p:closer'
     type = 'python'
     style = 'plain'
-    foreground = 'p:closer'
 
 [[blocks]]
   type = 'rprompt'
   overflow = 'hide'
 
   [[blocks.segments]]
-    type = 'executiontime'
-    style = 'plain'
+    template = '{{ .FormattedMs }}'
     foreground = 'yellow'
     background = 'transparent'
-    template = '{{ .FormattedMs }}'
+    type = 'executiontime'
+    style = 'plain'
 
     [blocks.segments.properties]
       threshold = 5000
@@ -88,38 +110,10 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   type = 'prompt'
   alignment = 'left'
   newline = true
-  
+
   [[blocks.segments]]
+    template = ''
+    background = 'transparent'
     type = 'text'
     style = 'plain'
-    foreground_templates = [
-      "{{if gt .Code 0}}red{{end}}",
-      "{{if eq .Code 0}}p:closer{{end}}",
-    ]
-    background = 'transparent'
-    template = ''
-
-[transient_prompt]
-  foreground_templates = [
-    "{{if gt .Code 0}}red{{end}}",
-    "{{if eq .Code 0}}p:closer{{end}}",
-  ]
-  background = 'transparent'
-  template = ' '
-
-[secondary_prompt]
-  foreground = 'p:closer'
-  background = 'transparent'
-  template = ' '
-
-[error_line]
-  foreground = 'red'
-  background = 'transparent'
-  template = '<#eb6f92,#286983>\ue009 </><#286983,transparent>\ue0b4</> '
-
-[palette]
-  blue = '#89B4FA'
-  closer = 'p:os'
-  lavender = '#B4BEFE'
-  os = '#ACB0BE'
-  pink = '#F5C2E7'
+    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}p:closer{{end}}']
