@@ -23,8 +23,3 @@ _darcs
 ^/COPYING
 
 scritps
-
-\.config/raycast
-\.config/zed/conversations
-\.config/zed/prompts
-\.config/zed/themes
