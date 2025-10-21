@@ -18,7 +18,7 @@ brew install stow zoxide oh-my-posh fzf lsd bat awscli aws-sso-util awsume k9s
 ### List of casks to install
 
 ```shell
-brew install --cask font-jetbrains-mono-nerd-font obsidian raycast wezterm zed
+brew install --cask font-jetbrains-mono-nerd-font obsidian raycast wezterm zed docker-desktop
 ```
 
 ### Installation
