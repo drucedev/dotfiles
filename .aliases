@@ -14,6 +14,11 @@ if [ -x "$(command -v lsd)" ]; then
     alias la='lsd -la'
 fi
 
+# bat instead of cat
+if [ -x "$(command -v bat)" ]; then
+    alias cat='bat'
+fi
+
 # Show sorted used memory of folders
 alias used='du -sch * | sort -rh'
 
