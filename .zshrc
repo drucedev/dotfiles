@@ -34,6 +34,7 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/mod_catppuccin_mocha.toml)"
 fi
 eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(codex completion zsh)"
 
 # History
 HISTSIZE=5000
@@ -65,6 +66,9 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 [[ -f ~/.aws-login ]] && source ~/.aws-login
 # Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
+
+# Created by `pipx` on 2026-01-26 14:30:39
+export PATH="$PATH:/Users/andrei.kukharau/.local/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
