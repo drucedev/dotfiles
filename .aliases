@@ -26,4 +26,4 @@ alias used='du -sch * | sort -rh'
 alias awsume="source awsume"
 
 # Upgrade brew, npm and pipx
-alias uu="bubu && npm update -g && pipx upgrade-all"
+alias uu="bubu; npm update -g; pipx upgrade-all"
