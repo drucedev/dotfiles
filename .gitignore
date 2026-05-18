@@ -8,3 +8,5 @@
 
 .config/github-copilot
 .config/jgit
+.config/acli
+.config/configstore

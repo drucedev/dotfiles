@@ -35,6 +35,7 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
 fi
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(codex completion zsh)"
+source <(acli completion zsh)
 
 # History
 HISTSIZE=5000
