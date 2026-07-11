@@ -10,3 +10,4 @@
 .config/jgit
 .config/acli
 .config/configstore
+.config/hunk

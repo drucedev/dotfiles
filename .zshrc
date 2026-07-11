@@ -71,6 +71,28 @@ HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 # Created by `pipx` on 2026-01-26 14:30:39
 export PATH="$PATH:/Users/andrei.kukharau/.local/bin"
 
+pi-safe() {
+  local ROOT
+  ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+
+  local args=(
+    --map "$HOME"/.local/share
+    --map "$HOME"/.local/state
+    --map "$HOME"/.cache
+    --map "$HOME/.gitconfig"
+
+    --rw-map "$HOME/.pi"
+    --rw-map "$ROOT"
+    --rw-map "/tmp"
+
+    --ssh
+    --no-save-config
+    --exec
+  )
+
+  ai-jail "${args[@]}" -- pi "$@"
+}
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
