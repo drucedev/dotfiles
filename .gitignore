@@ -11,3 +11,7 @@
 .config/acli
 .config/configstore
 .config/hunk
+.config/cagent
+
+.config/herdr/*
+!.config/herdr/config.toml
