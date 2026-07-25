@@ -1,0 +1,23 @@
+{
+  "defaults": { "profile": "work", "tier": "medium" },
+  "profiles": [
+    { "id": "work", "label": "Work", "prose": "profiles/work.md", "allowedRoles": ["developer", "technical-writer", "knowledge-keeper"], "defaultRole": "developer", "capabilities": { "skills": { "add": ["jira"] } }, "guardrails": [] },
+    { "id": "personal", "label": "Personal", "prose": "profiles/personal.md", "allowedRoles": ["developer"], "defaultRole": "developer", "capabilities": {}, "guardrails": [] }
+  ],
+  "roles": [
+    { "id": "developer", "label": "Developer", "prose": "roles/developer.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "versioning"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"] },
+    { "id": "technical-writer", "label": "Technical Writer", "prose": "roles/technical-writer.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": [], "subagents": ["oracle", "librarian"] }, "guardrails": [] },
+    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": "roles/knowledge-keeper.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"] }
+  ],
+  "tiers": [
+    { "id": "low", "label": "Low", "prose": "tiers/low.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "low" },
+    { "id": "medium", "label": "Medium", "prose": "tiers/medium.md", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "medium" },
+    { "id": "high", "label": "High", "prose": "tiers/high.md", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "high" }
+  ],
+  "guardrails": [
+    { "id": "instruction-precedence", "prose": "guardrails/instruction-precedence.md", "enforcement": "Prompt-enforced; conflicts are visible through Agent System diagnostics." },
+    { "id": "developer-git-safety", "prose": "guardrails/developer-git-safety.md", "enforcement": "Partially enforced by pi-code-workflow git hooks; prompt policy covers operations outside those hooks." },
+    { "id": "knowledge-source-integrity", "prose": "guardrails/knowledge-source-integrity.md", "enforcement": "Prompt-enforced; no hook distinguishes raw-source directories, so the boundary relies on the wiki schema and prompt policy." }
+  ],
+  "globalGuardrails": ["instruction-precedence"]
+}
