@@ -1,0 +1,48 @@
+# Work-Mac-only extras. Sourced after ~/.zshrc.darwin, so anything here
+# overrides the mac package defaults.
+
+# Full system upgrade — this machine is managed by brew, not nix
+alias uu="bubu; npm outdated -g --depth=0; npm update -g; pipx upgrade-all"
+
+# AWSume alias to source the AWSume script
+alias awsume="source awsume"
+
+# Homebrew cleanup policy
+export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
+
+# Work-only zsh plugins (tools installed via brew/sdkman on this machine)
+zinit snippet OMZP::brew
+zinit snippet OMZP::gradle
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::sdk
+
+# Completions for work CLIs
+(( $+commands[codex] )) && eval "$(codex completion zsh)"
+(( $+commands[acli] )) && source <(acli completion zsh)
+
+# Sandboxed pi launcher
+pi-safe() {
+  local ROOT
+  ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+
+  local args=(
+    --map "$HOME"/.local/share
+    --map "$HOME"/.local/state
+    --map "$HOME"/.cache
+    --map "$HOME/.gitconfig"
+
+    --rw-map "$HOME/.pi"
+    --rw-map "$ROOT"
+    --rw-map "/tmp"
+
+    --ssh
+    --no-save-config
+    --exec
+  )
+
+  ai-jail "${args[@]}" -- pi "$@"
+}
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

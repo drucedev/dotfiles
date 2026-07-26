@@ -1,8 +1,8 @@
 # Set language environment
 export LANG=en_US.UTF-8
 
-# Directory for storing zinit and it's plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# Directory for storing zinit and its plugins
+ZINIT_HOME="$XDG_DATA_HOME/zinit/zinit.git"
 
 # Download zinit if it's not there
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -17,29 +17,30 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
-zinit snippet OMZP::brew
-zinit snippet OMZP::gradle
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::sdk
+
+# Extra completion definitions
+fpath=(~/.zfunc $fpath)
+
+# zsh does not create missing parent dirs for HISTFILE/compdump
+[[ -d $XDG_STATE_HOME/zsh ]] || mkdir -p "$XDG_STATE_HOME/zsh"
+[[ -d $XDG_CACHE_HOME/zsh ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
 
 # Auto load completions
-autoload -U compinit && compinit
+autoload -U compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 
 zinit cdreplay -q
 
-# Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+# Shell integrations — guarded so a missing tool never breaks a new shell
+(( $+commands[fzf] )) && eval "$(fzf --zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init --cmd cd zsh)"
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/mod_catppuccin_mocha.toml)"
+  (( $+commands[starship] )) && eval "$(starship init zsh)"
 fi
-eval "$(fnm env --use-on-cd --shell zsh)"
-eval "$(codex completion zsh)"
-source <(acli completion zsh)
 
 # History
 HISTSIZE=5000
-HISTFILE=$HOME/.zsh_history
+HISTFILE="$XDG_STATE_HOME/zsh/history"
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
@@ -53,46 +54,24 @@ setopt hist_find_no_dups
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' manu no
+zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Homebrew Config
-HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
+# pnpm
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+[[ -d $PNPM_HOME/bin ]] && export PATH="$PNPM_HOME/bin:$PATH"
 
 # Dependencies
 # Aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
-# Aws Login
+# AWS login helpers (work package)
 [[ -f ~/.aws-login ]] && source ~/.aws-login
-# Secrets
+# Secrets (never tracked)
 [[ -f ~/.secrets ]] && source ~/.secrets
 
-# Created by `pipx` on 2026-01-26 14:30:39
-export PATH="$PATH:/Users/andrei.kukharau/.local/bin"
-
-pi-safe() {
-  local ROOT
-  ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-
-  local args=(
-    --map "$HOME"/.local/share
-    --map "$HOME"/.local/state
-    --map "$HOME"/.cache
-    --map "$HOME/.gitconfig"
-
-    --rw-map "$HOME/.pi"
-    --rw-map "$ROOT"
-    --rw-map "/tmp"
-
-    --ssh
-    --no-save-config
-    --exec
-  )
-
-  ai-jail "${args[@]}" -- pi "$@"
-}
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Machine-specific extras provided by stow packages (mac/linux/work);
+# sourced last so they can override anything above
+for extra in ~/.zshrc.${(L)$(uname -s)} ~/.zshrc.work; do
+  [[ -f $extra ]] && source "$extra"
+done

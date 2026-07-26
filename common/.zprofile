@@ -1,7 +1,12 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew — only present on the work Mac; nix-managed machines skip this
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
-# Added by Toolbox App
-export PATH="$PATH:/Users/andrei.kukharau/Library/Application Support/JetBrains/Toolbox/scripts"
+# User-local binaries (pipx, manual installs)
+export PATH="$PATH:$XDG_BIN_HOME"
 
-# Created by `pipx` on 2026-01-26 14:30:39
-export PATH="$PATH:/Users/andrei.kukharau/.local/bin"
+# proton-pass-cli: use the system keyring via Secret Service on Linux
+[[ "$OSTYPE" == linux* ]] && export PROTON_PASS_LINUX_KEYRING=dbus
