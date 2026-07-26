@@ -1,0 +1,36 @@
+theme = Catppuccin Mocha
+
+# Requires a Nerd Font — install per machine (see README)
+font-family = IosevkaTerm Nerd Font Mono
+font-size = 18
+font-thicken = true
+font-thicken-strength = 1
+adjust-cell-height = 1
+
+maximize = true
+
+# Titlebar styles — each is applied on its OS and ignored on the other
+macos-titlebar-style = tabs
+gtk-titlebar-style = tabs
+
+shell-integration = detect
+shell-integration-features = no-cursor
+
+scrollback-limit = 100000000
+
+background-opacity = 0.8
+background-blur = 5
+
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+window-padding-color = background
+
+# clipboard protection
+clipboard-read = ask
+clipboard-write = allow
+clipboard-paste-protection = true
+copy-on-select = true
+
+# prevent title query attacks
+title-report = false
