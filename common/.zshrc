@@ -1,6 +1,9 @@
 # Set language environment
 export LANG=en_US.UTF-8
 
+# User-local binaries (pipx, manual installs)
+export PATH="$PATH:$XDG_BIN_HOME"
+
 # Directory for storing zinit and its plugins
 ZINIT_HOME="$XDG_DATA_HOME/zinit/zinit.git"
 

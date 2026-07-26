@@ -16,6 +16,10 @@ zinit snippet OMZP::gradle
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::sdk
 
+# These snippets load after the compinit/cdreplay in ~/.zshrc — replay so
+# their compdef calls (gradle, sdk) actually register
+zinit cdreplay -q
+
 # Completions for work CLIs
 (( $+commands[codex] )) && eval "$(codex completion zsh)"
 (( $+commands[acli] )) && source <(acli completion zsh)
