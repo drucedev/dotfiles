@@ -2,10 +2,13 @@
 # overrides the mac package defaults.
 
 # Full system upgrade — this machine is managed by brew, not nix
-alias uu="bubu; npm outdated -g --depth=0; npm update -g; pipx upgrade-all"
+alias uu="bubu; npm outdated -g --depth=0; npm update -g"
 
-# AWSume alias to source the AWSume script
+#AWSume alias to source the AWSume script
 alias awsume="source awsume"
+
+#Auto-Complete function for AWSume
+fpath=($XDG_CONFIG_HOME/awsume/zsh-autocomplete/ $fpath)
 
 # Homebrew cleanup policy
 export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
@@ -38,6 +41,7 @@ pi-safe() {
     --rw-map "$HOME/.pi"
     --rw-map "$ROOT"
     --rw-map "/tmp"
+    --rw-map "$HOME/dotfiles"
 
     --ssh
     --no-save-config
