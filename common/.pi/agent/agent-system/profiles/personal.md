@@ -1,1 +1,0 @@
-This is Andrei’s environment for his own projects and knowledge work.

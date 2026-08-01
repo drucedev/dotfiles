@@ -1,1 +1,1 @@
-Guardrails are invariant. Otherwise follow this precedence: explicit user instructions; project instructions; automatically loaded Skill instructions; Profile context; Role and Tier defaults; Tool Guidelines. A manually invoked Skill counts as an explicit user instruction.
+Guardrails are invariant. Otherwise follow this precedence: explicit user instructions; project instructions; automatically loaded Skill instructions; Agent and Tier defaults; Tool Guidelines. A manually invoked Skill counts as an explicit user instruction.

@@ -1,17 +1,14 @@
 {
-  "defaults": { "profile": "work", "tier": "medium" },
-  "profiles": [
-    { "id": "work", "label": "Work", "prose": "profiles/work.md", "allowedRoles": ["developer", "technical-writer", "knowledge-keeper"], "defaultRole": "developer", "capabilities": { "skills": { "add": ["jira"] } }, "guardrails": [] },
-    { "id": "personal", "label": "Personal", "prose": "profiles/personal.md", "allowedRoles": ["developer"], "defaultRole": "developer", "capabilities": {}, "guardrails": [] }
-  ],
-  "roles": [
-    { "id": "developer", "label": "Developer", "prose": "roles/developer.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "versioning"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"] },
-    { "id": "technical-writer", "label": "Technical Writer", "prose": "roles/technical-writer.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": [], "subagents": ["oracle", "librarian"] }, "guardrails": [] },
-    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": "roles/knowledge-keeper.md", "required": { "tools": ["read", "bash", "edit", "write"] }, "defaults": { "tools": [], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"] }
+  "defaults": { "agent": "europace-developer" },
+  "agents": [
+    { "id": "europace-developer", "label": "Europace Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md", "prose/europace-git.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "jira", "tdd", "versioning"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"], "tiers": ["low", "medium", "high"], "defaultTier": "medium" },
+    { "id": "developer", "label": "Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "versioning"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"], "tiers": ["low", "medium", "high"], "defaultTier": "medium" },
+    { "id": "technical-writer", "label": "Technical Writer", "prose": ["prose/technical-writer.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": [], "subagents": ["oracle", "librarian"] }, "guardrails": [], "tiers": ["medium", "high"], "defaultTier": "medium" },
+    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": ["prose/knowledge-keeper.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"], "tiers": ["high"], "defaultTier": "high" }
   ],
   "tiers": [
     { "id": "low", "label": "Low", "prose": "tiers/low.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "low" },
-    { "id": "medium", "label": "Medium", "prose": "tiers/medium.md", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "medium" },
+    { "id": "medium", "label": "Medium", "prose": "tiers/medium.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "medium" },
     { "id": "high", "label": "High", "prose": "tiers/high.md", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "high" }
   ],
   "guardrails": [
