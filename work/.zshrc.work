@@ -10,6 +10,9 @@ alias awsume="source awsume"
 #Auto-Complete function for AWSume
 fpath=($XDG_CONFIG_HOME/awsume/zsh-autocomplete/ $fpath)
 
+# AWS login helpers (work package)
+[[ -f ~/.aws-login ]] && source ~/.aws-login
+
 # Homebrew cleanup policy
 export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
 

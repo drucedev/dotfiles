@@ -68,8 +68,6 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 # Dependencies
 # Aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
-# AWS login helpers (work package)
-[[ -f ~/.aws-login ]] && source ~/.aws-login
 # Secrets (never tracked)
 [[ -f ~/.secrets ]] && source ~/.secrets
 
