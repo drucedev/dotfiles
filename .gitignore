@@ -1,21 +1,7 @@
-# Machine state that apps write into stowed config dirs lands inside this
-# repo (stow symlinks point here) — never track it. Patterns are **/-prefixed
-# so they apply inside every package (common/mac/linux/personal/work).
-
-.secrets
-
-**/.config/raycast
-
+# Guard against app state entering a folded Stow package if --no-folding is omitted.
 **/.config/zed/conversations
 **/.config/zed/prompts
 **/.config/zed/themes
-
-**/.config/github-copilot
-**/.config/jgit
-**/.config/acli
-**/.config/configstore
-**/.config/hunk
-**/.config/cagent
 
 **/.config/herdr/*
 !**/.config/herdr/config.toml
