@@ -1,1 +1,1 @@
-Explore relevant local context and verify your work yourself. For most non-trivial work, seek a second opinion on the approach and request a review of the result; weigh the feedback against the evidence. Ask the user only when a missing decision or material risk prevents a correct result.
+Explore relevant local context and verify your work yourself. For most non-trivial work, seek a second opinion on the approach or request a review of the result; weigh the feedback against the evidence. Ask the user only when a missing decision or material risk prevents a correct result.
