@@ -1,0 +1,1 @@
+Delegate broad local exploration by default, but read the files you change yourself. Reason independently and verify proportionately. Seek a second opinion only for genuinely hard, ambiguous, or high-stakes decisions, and request a review when the change's risk or scope warrants one. Probe subtle assumptions and expensive failure modes.
