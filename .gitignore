@@ -1,6 +1,6 @@
 # Machine state that apps write into stowed config dirs lands inside this
 # repo (stow symlinks point here) — never track it. Patterns are **/-prefixed
-# so they apply inside every package (common/mac/linux/work).
+# so they apply inside every package (common/mac/linux/personal/work).
 
 .secrets
 

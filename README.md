@@ -5,9 +5,9 @@ GNU stow dotfiles for all machines, organized into per-scope packages:
 | Machine | OS | Managed by | Stow packages |
 | --- | --- | --- | --- |
 | Work Mac | macOS | Homebrew | `common mac work` |
-| Odin (home Mac) | macOS | nix-darwin via [everything-nix](../everything-nix) | `common mac` |
-| Thor (home PC) | NixOS | NixOS via everything-nix | `common linux` |
-| Ivaldi (server) | NixOS | NixOS via everything-nix | `common linux` (optional) |
+| Odin (home Mac) | macOS | nix-darwin via [everything-nix](../everything-nix) | `common mac personal` |
+| Thor (home PC) | NixOS | NixOS via everything-nix | `common linux personal` |
+| Ivaldi (server) | NixOS | NixOS via everything-nix | `common linux personal` (optional) |
 
 System-level config (packages, fonts, services) for the nix machines lives in
 `~/everything-nix` — this repo only manages `$HOME` dotfiles.
@@ -16,10 +16,12 @@ System-level config (packages, fonts, services) for the nix machines lives in
 
 ```
 common/    stowed everywhere — shell, starship, ghostty, nvim, btop,
-           fastfetch, wezterm, zed, pnpm, git ignore, herdr, pi
+           fastfetch, wezterm, zed, pnpm, git ignore, herdr
 mac/       stowed on both Macs — gnupg (pinentry-mac), .zshrc.darwin
 linux/     stowed on Linux — niri, .zshrc.linux
-work/      stowed only on the work Mac — aws login, .zshrc.work
+personal/  stowed on non-work machines — personal pi agent-system
+work/      stowed only on the work Mac — work pi agent-system, aws login,
+           .zshrc.work
 ```
 
 The shell reads machine extras at the end of `.zshrc` — whichever of
@@ -68,12 +70,28 @@ stow --no-folding common mac work   # adjust per machine, see table above
 apps that write state into `~/.config/...` never write into this repo. Use
 the same flag if you ever unstow (`stow -D --no-folding ...`).
 
+The work and personal Pi agent-system directories are self-contained because
+Pi treats the real directory containing `definitions.json` as a trust boundary.
+Keep their shared definitions and prose in sync.
+
 Then open a new shell. zinit clones itself and its plugins on first run.
 Machine-local secrets go in `~/.secrets` (never tracked).
 
 ---
 
 ## Migration guide
+
+### After the Pi agent-system split
+
+Restow after pulling this layout so the moved Pi links are replaced:
+
+```sh
+stow --no-folding -R common mac work       # work Mac
+stow --no-folding -R common mac personal   # home Mac
+stow --no-folding -R common linux personal # Linux
+```
+
+### From an older dotfiles layout
 
 Do the unstow + restow in one terminal session — already-open shells keep
 working, but new shells have no config between the steps.
@@ -115,7 +133,7 @@ identity **before using git** (see *Git setup* above), then:
 ```sh
 git clone git@github.com:drucedev/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow --no-folding common linux
+stow --no-folding common linux personal
 ```
 
 Afterwards:
@@ -134,12 +152,13 @@ CLI tools come from everything-nix. After the first boot:
 
 ```sh
 git clone git@github.com:drucedev/dotfiles.git ~/dotfiles
-cd ~/dotfiles && stow --no-folding common linux
+cd ~/dotfiles && stow --no-folding common linux personal
 ```
 
 ### Odin (fresh, no prior dotfiles)
 
-No migration — just *Requirements* → *Git setup* → *Install*.
+No migration — just *Requirements* → *Git setup* → *Install*, using
+`stow --no-folding common mac personal`.
 
 ---
 

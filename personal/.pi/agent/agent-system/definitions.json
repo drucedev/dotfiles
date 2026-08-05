@@ -1,0 +1,19 @@
+{
+  "defaults": { "agent": "developer" },
+  "agents": [
+    { "id": "developer", "label": "Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "versioning"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"], "tiers": ["jun", "sen"], "defaultTier": "jun" },
+    { "id": "technical-writer", "label": "Technical Writer", "prose": ["prose/technical-writer.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": [], "subagents": ["oracle", "librarian"] }, "guardrails": [], "tiers": ["yap"], "defaultTier": "yap" },
+    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": ["prose/knowledge-keeper.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"], "tiers": ["yap"], "defaultTier": "yap" }
+  ],
+  "tiers": [
+    { "id": "jun", "label": "Junior", "prose": "tiers/low.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "low" },
+    { "id": "sen", "label": "Senior", "prose": "tiers/high.md", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "high" },
+    { "id": "yap", "label": "Yapper", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "medium" }
+  ],
+  "guardrails": [
+    { "id": "instruction-precedence", "prose": "guardrails/instruction-precedence.md", "enforcement": "Prompt-enforced; conflicts are visible through Agent System diagnostics." },
+    { "id": "developer-git-safety", "prose": "guardrails/developer-git-safety.md", "enforcement": "Partially enforced by pi-code-workflow git hooks; prompt policy covers operations outside those hooks." },
+    { "id": "knowledge-source-integrity", "prose": "guardrails/knowledge-source-integrity.md", "enforcement": "Prompt-enforced; no hook distinguishes raw-source directories, so the boundary relies on the wiki schema and prompt policy." }
+  ],
+  "globalGuardrails": ["instruction-precedence"]
+}
