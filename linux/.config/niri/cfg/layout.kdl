@@ -3,7 +3,7 @@
 	always-center-single-column
         center-focused-column "never" // Don’t auto-center focused column
 
-        background-color "transparent" // <- needed for noctalia-shell to set wallpaper
+        background-color "#1e1e2e"
 
 	default-column-width { proportion 0.66667; }	
 
