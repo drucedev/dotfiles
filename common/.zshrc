@@ -62,8 +62,9 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # pnpm
-export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-[[ -d $PNPM_HOME/bin ]] && export PATH="$PNPM_HOME/bin:$PATH"
+export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+mkdir -p "$PNPM_HOME/bin"
+export PATH="$PNPM_HOME/bin:$PATH"
 
 # Dependencies
 # Aliases
