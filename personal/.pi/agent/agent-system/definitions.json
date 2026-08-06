@@ -5,7 +5,7 @@
   ],
   "tiers": [
     { "id": "jun", "label": "Junior", "prose": "tiers/junior.md", "provider": "opencode-go", "model": "gpt-5.6-luna", "reasoning": "high" },
-    { "id": "sen", "label": "Senior", "prose": "tiers/senior.md", "provider": "opencode-go", "model": "grok-4.5", "reasoning": "high" }
+    { "id": "sen", "label": "Senior", "prose": "tiers/senior.md", "provider": "opencode-go", "model": "gpt-5.6-luna", "reasoning": "max" }
   ],
   "guardrails": [
     { "id": "instruction-precedence", "prose": "guardrails/instruction-precedence.md", "enforcement": "Prompt-enforced; conflicts are visible through Agent System diagnostics." },
