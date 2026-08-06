@@ -1,2 +1,3 @@
-store-dir: "$HOME/.local/share/pnpm/store"
-global-dir: "$HOME/.local/share/pnpm/global"
+storeDir: "${HOME}/.local/share/pnpm/store"
+globalDir: "${HOME}/.local/share/pnpm/global"
+globalBinDir: "${HOME}/.local/share/pnpm/bin"
