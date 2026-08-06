@@ -30,7 +30,8 @@ the stowed packages decide the machine's behavior.
 
 ## Requirements
 
-All machines: `git`, `zsh`, `stow`.
+Odin and Thor: `git`, `zsh`, `stow`. Ivaldi's user package set is deferred
+until its server role is designed.
 
 **Work Mac** (brew):
 
@@ -39,8 +40,10 @@ brew install stow starship zoxide fzf lsd bat fnm pipx awscli aws-sso-util awsum
 brew install --cask font-iosevka-term-nerd-font ghostty wezterm zed obsidian raycast docker-desktop
 ```
 
-**Odin / Thor / Ivaldi**: CLI tools (stow, starship, zoxide, fzf, lsd,
-ghostty, pnpm, …) are installed by everything-nix. Two gaps to be aware of:
+**Odin / Thor**: CLI tools (stow, starship, zoxide, fzf, lsd, ghostty,
+pnpm, …) are installed by everything-nix. Thor's Wayland desktop packages
+(Waybar, Fuzzel, and Swaylock) are installed by its host configuration.
+Ivaldi's package set is intentionally deferred. Two gaps to be aware of:
 
 - everything-nix currently ships only JetBrains Mono — add
   `nerd-fonts.iosevka-term` to `modules/fonts.nix` for the ghostty font
