@@ -36,8 +36,8 @@ until its server role is designed.
 **Work Mac** (brew):
 
 ```sh
-brew install stow starship zoxide fzf lsd bat fnm pipx awscli aws-sso-util awsume k9s
-brew install --cask font-iosevka-term-nerd-font ghostty wezterm zed obsidian raycast docker-desktop
+brew install stow starship zoxide fzf lsd bat fnm awscli aws-sso-util awsume k9s
+brew install --cask font-jetbrains-mono-nerd-font ghostty zed obsidian raycast docker-desktop
 ```
 
 **Odin / Thor**: CLI tools (stow, starship, zoxide, fzf, lsd, ghostty,
@@ -45,8 +45,6 @@ pnpm, …) are installed by everything-nix. Thor's Wayland desktop packages
 (Waybar, Fuzzel, and Swaylock) are installed by its host configuration.
 Ivaldi's package set is intentionally deferred. Two gaps to be aware of:
 
-- everything-nix currently ships only JetBrains Mono — add
-  `nerd-fonts.iosevka-term` to `modules/fonts.nix` for the ghostty font
 - `neovim` and `bat` are not in everything-nix yet; the nvim config here is
   inert and the `cat` alias degrades gracefully until you add them
 
@@ -58,7 +56,6 @@ Ivaldi's package set is intentionally deferred. Two gaps to be aware of:
 git config --global user.name "Andrei Kukharau"
 git config --global user.email "contact@druce.dev"   # use work email on the work Mac
 git config --global init.defaultBranch main
-git config --global core.excludesFile ~/.config/git/ignore
 ```
 
 ## Install
@@ -79,89 +76,6 @@ Keep the developer and senior tier prose shared by both systems in sync.
 
 Then open a new shell. zinit clones itself and its plugins on first run.
 Machine-local secrets go in `~/.secrets` (never tracked).
-
----
-
-## Migration guide
-
-### After the Pi agent-system split
-
-Restow after pulling this layout so the moved Pi links are replaced:
-
-```sh
-stow --no-folding -R common mac work       # work Mac
-stow --no-folding -R common mac personal   # home Mac
-stow --no-folding -R common linux personal # Linux
-```
-
-### From an older dotfiles layout
-
-Do the unstow + restow in one terminal session — already-open shells keep
-working, but new shells have no config between the steps.
-
-### From the old flat `dotfiles` layout (work Mac)
-
-Old symlinks in `$HOME` point into the repo, so unstow **before** pulling:
-
-```sh
-cd ~/dotfiles        # wherever the old clone lives
-stow -D .            # remove all old symlinks (old layout used folding — no flag)
-git pull             # fetch the restructured layout
-stow --no-folding common mac work
-```
-
-Afterwards:
-
-1. **Prompt**: `brew install starship`; optionally `brew uninstall oh-my-posh`
-   and `rm -rf ~/.config/ohmyposh`.
-2. **Font**: ghostty now wants IosevkaTerm Nerd Font —
-   `brew install --cask font-iosevka-term-nerd-font`.
-3. **zsh history** moved to the XDG state dir (optional but recommended):
-   `mkdir -p ~/.local/state/zsh && mv ~/.zsh_history ~/.local/state/zsh/history`
-4. **zoxide** now replaces `cd` (`zoxide init --cmd cd`) — muscle memory
-   still works, directories are learned as you go.
-5. **git identity**: `~/.gitconfig` was never tracked by this repo, so it is
-   untouched — nothing to do.
-
-### From `dots` (Thor, while still on CachyOS)
-
-```sh
-cd ~/dots
-stow -D .            # remove old symlinks — this also removes ~/.gitconfig!
-```
-
-`dots` tracked `~/.gitconfig`, so unstowing deletes the symlink. Recreate your
-identity **before using git** (see *Git setup* above), then:
-
-```sh
-git clone git@github.com:drucedev/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-stow --no-folding common linux personal
-```
-
-Afterwards:
-
-1. **bun** is no longer managed — remove it if you don't need it:
-   `rm -rf ~/.bun` (also drop the bun lines from any leftover local rc files).
-2. **zsh history** moved, same as above:
-   `mkdir -p ~/.local/state/zsh && mv ~/.zsh_history ~/.local/state/zsh/history`
-3. **niri and starship configs** come right back via the new packages —
-   no action needed.
-4. The old `dots` clone can be archived once everything works.
-
-### When Thor is reinstalled as NixOS
-
-CLI tools come from everything-nix. After the first boot:
-
-```sh
-git clone git@github.com:drucedev/dotfiles.git ~/dotfiles
-cd ~/dotfiles && stow --no-folding common linux personal
-```
-
-### Odin (fresh, no prior dotfiles)
-
-No migration — just *Requirements* → *Git setup* → *Install*, using
-`stow --no-folding common mac personal`.
 
 ---
 
