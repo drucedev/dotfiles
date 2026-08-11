@@ -8,14 +8,14 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$cmd_duration\
 $line_break\
 $character"""
 
 right_format = """
 $java\
 $kotlin\
-nodejs"""
+$nodejs\
+$cmd_duration"""
 
 [directory]
 style = "blue"
