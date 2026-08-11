@@ -1,7 +1,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """
-$username\
+add_newline = false
+
+format = """($nix_shell$git_metrics\n)$username\
 $hostname\
 $directory\
 $git_branch\
@@ -11,7 +12,10 @@ $cmd_duration\
 $line_break\
 $character"""
 
-add_newline = false
+right_format = """
+$java\
+$kotlin\
+nodejs"""
 
 [directory]
 style = "blue"
@@ -40,6 +44,31 @@ stashed = "≡"
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
+[git_metrics]
+format = '([▴$added]($added_style))([▿$deleted]($deleted_style))'
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
+
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
+
+[nodejs]
+format = " [node](italic) [◫ ($version)](bold bright-green)"
+version_format = "${raw}"
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
+
+[java]
+format = "[${symbol}(${version} )]($style)"
+
+[nix_shell]
+style = 'bold italic dimmed blue'
+symbol = '✶'
+format = '[$symbol nix⎪$state⎪]($style) [$name](italic dimmed white)'
+impure_msg = '[⌽](bold dimmed red)'
+pure_msg = '[⌾](bold dimmed green)'
+unknown_msg = '[◌](bold dimmed yellow)'
