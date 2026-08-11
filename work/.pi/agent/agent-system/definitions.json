@@ -4,11 +4,12 @@
     { "id": "europace-developer", "label": "Europace Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md", "prose/europace-git.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "jira", "tdd", "code-review"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"], "tiers": ["jun", "sen"], "defaultTier": "jun" },
     { "id": "developer", "label": "Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "code-review"], "subagents": ["oracle", "reviewer", "librarian", "scout"] }, "guardrails": ["developer-git-safety"], "tiers": ["jun", "sen"], "defaultTier": "jun" },
     { "id": "technical-writer", "label": "Technical Writer", "prose": ["prose/technical-writer.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": [], "subagents": ["oracle", "librarian"] }, "guardrails": [], "tiers": ["yap"], "defaultTier": "yap" },
-    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": ["prose/knowledge-keeper.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"], "tiers": ["yap"], "defaultTier": "yap" }
+    { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": ["prose/knowledge-keeper.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["llm-wiki"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"], "tiers": ["keep", "yap"], "defaultTier": "keep" }
   ],
   "tiers": [
     { "id": "jun", "label": "Junior", "prose": "tiers/junior.md", "provider": "openai-codex", "model": "gpt-5.6-luna", "reasoning": "max" },
     { "id": "sen", "label": "Senior", "prose": "tiers/senior.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "high" },
+    { "id": "keep", "label": "Keeper", "provider": "openai-codex", "model": "gpt-5.6-terra", "reasoning": "high" },
     { "id": "yap", "label": "Yapper", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "medium" }
   ],
   "guardrails": [
