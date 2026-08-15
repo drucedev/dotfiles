@@ -1,54 +1,90 @@
 {
-  "output": ["DP-5"],
+  "output": [
+    "DP-5"
+  ],
   "layer": "top",
   "position": "top",
-  "height": 32,
-  "spacing": 8,
-  "modules-left": ["niri/workspaces"],
-  "modules-center": ["niri/window"],
-  "modules-right": ["pulseaudio", "network", "clock", "tray"],
-
+  "height": 36,
+  "spacing": 20,
+  "modules-left": [
+    "niri/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "tray",
+    "network",
+    "pulseaudio",
+    "cpu",
+    "custom/power"
+  ],
   "niri/workspaces": {
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
       "default": ""
     }
   },
-
-  "niri/window": {
-    "format": "{}",
-    "max-length": 80
+  "clock": {
+    "format": "{:%A %H:%M}",
+    "format-alt": "{:%d %B W%V %Y}",
+    "tooltip": false
   },
-
+  "tray": {
+    "icon-size": 16,
+    "spacing": 17
+  },
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤮",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "tooltip-format": "{ifname}: {ipaddr}"
+  },
   "pulseaudio": {
-    "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-muted": "muted {format_source}",
-    "format-source": "",
-    "format-source-muted": "",
+    "format": "{icon}",
+    "format-muted": "",
     "format-icons": {
-      "default": ["", "", ""],
-      "headphones": ["", "", ""]
+      "default": [
+        "",
+        "",
+        ""
+      ],
+      "headphones": [
+        "",
+        "",
+        ""
+      ]
     },
+    "tooltip-format": "Volume: {volume}%",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "scroll-step": 5
   },
-
-  "network": {
-    "format-wifi": " {signalStrength}%",
-    "format-ethernet": "󰈀 connected",
-    "format-disconnected": "󰖪 offline",
-    "tooltip-format": "{ifname}: {ipaddr}"
+  "cpu": {
+    "interval": 5,
+    "format": "󰍛",
+    "on-click": "ghostty -e btop"
   },
-
-  "clock": {
-    "format": "{:%a %d %b  %H:%M}",
-    "tooltip-format": "{:%A, %d %B %Y}"
-  },
-
-  "tray": {
-    "spacing": 8
+  "custom/power": {
+    "format": "󰐥",
+    "tooltip-format": "Power\n\nSuper + Alt + Space",
+    "on-click": "/home/druce/.local/bin/power-menu"
   }
 }
