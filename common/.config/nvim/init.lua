@@ -4,6 +4,5 @@ require("options")
 require("keymaps")
 require("commands")
 require("pack")
-
-vim.set.colorscheme("catppuccin")
+require("colorscheme")
 
