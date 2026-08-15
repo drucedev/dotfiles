@@ -1,1 +1,2 @@
 // Desktop services are managed by NixOS; keep Niri startup minimal.
+spawn-at-startup "/home/druce/.local/bin/awww-start"
