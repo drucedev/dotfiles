@@ -1,5 +1,5 @@
 # Shared appearance and behavior.
-config-file = ../../../common/.config/ghostty/common.conf
+config-file = common.conf
 
 # Let the compositor decide the window state instead of requesting maximize.
 # GTK's native mode with its titlebar disabled leaves only an auto-hiding tab
