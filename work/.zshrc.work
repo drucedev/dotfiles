@@ -1,6 +1,9 @@
 # Work-Mac-only extras. Sourced after ~/.zshrc.darwin, so anything here
 # overrides the mac package defaults.
 
+# Node version manager
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
+
 # Full system upgrade — this machine is managed by brew, not nix
 alias uu="bubu; npm outdated -g --depth=0; npm update -g"
 
