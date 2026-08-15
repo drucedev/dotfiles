@@ -4,7 +4,7 @@ binds {
     // https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
 
     // ─── Applications ───
-    Mod+Shift+ESCAPE                    { show-hotkey-overlay; }
+    Mod+Shift+K                    { show-hotkey-overlay; }
     Mod+Return                          hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty"; }
     Mod+Space                           hotkey-overlay-title="Open App Launcher: Fuzzel" { spawn "fuzzel"; }
     Mod+B                               hotkey-overlay-title="Open Browser: Brave" { spawn "brave"; }

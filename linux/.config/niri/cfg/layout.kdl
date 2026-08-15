@@ -1,11 +1,11 @@
     layout {
-        gaps 8 // Gap between windows
-	always-center-single-column
+        gaps 16 // Gap between windows
+	    always-center-single-column
         center-focused-column "never" // Don’t auto-center focused column
 
-        background-color "#1e1e2e"
+        background-color "transparent"
 
-	default-column-width { proportion 0.66667; }	
+	default-column-width { proportion 0.66667; }
 
         preset-column-widths {
             proportion 0.33333

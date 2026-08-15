@@ -8,8 +8,8 @@ input {
             // uncomment the line below and change the layout accordingly.
             //layout "us" // Use the American keyboard layout
         }
-        
-        repeat-delay 200
+
+        repeat-delay 250
         repeat-rate 35
     }
 
@@ -18,11 +18,9 @@ input {
     }
 
     mouse {
-        accel-speed -0.2
+        natural-scroll
+        accel-speed -0.5
     }
 
-    mod-key "Alt"
-
-    focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }
