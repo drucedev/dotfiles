@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+wallpaper_dir="$HOME/Pictures/walls"
+if ! selection=$(find "$wallpaper_dir" -type f \( \
+	-iname '*.jpg' -o \
+	-iname '*.jpeg' -o \
+	-iname '*.png' -o \
+	-iname '*.webp' -o \
+	-iname '*.gif' \
+\) -printf '%P\n' | sort | fuzzel --dmenu --prompt 'wallpaper: '); then
+	exit 0
+fi
+
+[ -n "$selection" ] || exit 0
+awww img "$wallpaper_dir/$selection"
