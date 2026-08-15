@@ -1,0 +1,9 @@
+# Shared appearance and behavior.
+config-file = ../../../common/.config/ghostty/common.conf
+
+# Keep the Mac's integrated tabs and hide the traffic-light buttons.
+macos-titlebar-style = tabs
+macos-window-buttons = hidden
+
+# macOS should open Ghostty maximized; Linux leaves this to its compositor.
+maximize = true

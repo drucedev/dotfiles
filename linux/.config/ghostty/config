@@ -1,0 +1,9 @@
+# Shared appearance and behavior.
+config-file = ../../../common/.config/ghostty/common.conf
+
+# Let the compositor decide the window state instead of requesting maximize.
+# GTK's native mode with its titlebar disabled leaves only an auto-hiding tab
+# bar, which is the closest Linux equivalent to macOS's tabs titlebar.
+gtk-titlebar-style = native
+gtk-titlebar = false
+window-show-tab-bar = auto

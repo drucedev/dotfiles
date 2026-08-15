@@ -10,7 +10,7 @@ Touch points (a flavor switch touches exactly these):
 
 | App | File | Carries color |
 | --- | --- | --- |
-| ghostty | `common/.config/ghostty/config` | `theme =` |
+| ghostty | `common/.config/ghostty/common.conf` | `theme =` |
 | zed | `common/.config/zed/settings.json` | `theme`, `icon_theme` |
 | nvim | `common/.config/nvim/lua/colorscheme.lua` | `flavour` |
 | herdr | `common/.config/herdr/config.toml` | `theme.name` |
@@ -109,7 +109,8 @@ Machine-local secrets go in `~/.secrets` (never tracked).
 
 - `fastfetch` expects an optional logo at `~/Pictures/logo.png`; missing file
   just means no logo.
-- `maximize = true` in the ghostty config originates from the Mac config —
-  if ghostty on Linux complains about it, that line can go per-machine.
+- Ghostty keeps shared settings in `common/.config/ghostty/common.conf`; the
+  macOS and Linux packages provide the platform wrapper. macOS starts Ghostty
+  maximized, while Linux leaves window state to the compositor.
 - The `uu` alias upgrades the whole machine and differs per package manager:
   brew (work), nix-darwin rebuild (Macs), NixOS rebuild (Linux).
