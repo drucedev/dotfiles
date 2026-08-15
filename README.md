@@ -1,5 +1,31 @@
 # Dotfiles
 
+## Theme
+
+Everything runs Catppuccin Mocha, dark, with mauve (`#cba6f7`) as the accent —
+no per-app themes, no light mode. fastfetch and other TUI apps without a theme
+of their own inherit the palette from ghostty's ANSI overrides.
+
+Touch points (a flavor switch touches exactly these):
+
+| App | File | Carries color |
+| --- | --- | --- |
+| ghostty | `common/.config/ghostty/config` | `theme =` |
+| zed | `common/.config/zed/settings.json` | `theme`, `icon_theme` |
+| nvim | `common/.config/nvim/lua/colorscheme.lua` | `flavour` |
+| herdr | `common/.config/herdr/config.toml` | `theme.name` |
+| btop | `common/.config/btop/btop.conf` | vendored theme file |
+| waybar | `linux/.config/waybar/mocha.css` | `@import` in `style.css` |
+| fuzzel | `linux/.config/fuzzel/catppuccin-mocha.ini` | `include=` in `fuzzel.ini` |
+| swaylock | `linux/.config/swaylock/config` | whole file |
+| niri | `linux/.config/niri/cfg/layout.kdl` | focus-ring colors |
+
+Vendored files are verbatim from the official catppuccin ports — don't hand-edit
+them. Future direction: a `theme` script here flips the waybar `@import` and
+fuzzel `include` to sibling flavor files and rewrites the few remaining
+references. Deliberately no home-manager; catppuccin/nix's home-manager modules
+were considered and rejected for that reason.
+
 GNU stow dotfiles for all machines, organized into per-scope packages:
 
 | Machine | OS | Managed by | Stow packages |
