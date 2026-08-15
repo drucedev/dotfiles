@@ -105,23 +105,27 @@
        "break",
        {
           "type": "custom",
-          "format": "{#keys}{#1}{#magenta} Software"
+          "format": "{#keys}{#1}{#blue} Environment"
        },
        {
           "type": "os",
           "key": "├ OS Ver",
-          "keyColor": "magenta",
+          "keyColor": "blue",
           "format": "{2} {10} {8} - {12}"
        },
        {
           "type": "uptime",
           "key": "├ Uptime",
-          "keyColor": "magenta"
+          "keyColor": "blue"
        },
        {
           "type": "shell",
-          "key": "├ Shell ",
-          "keyColor": "magenta"
+          "key": "└ Shell ",
+          "keyColor": "blue"
+       },
+       {
+          "type": "custom",
+          "format": "{#keys}{#1}{#magenta}\uf187 Packages"
        },
        {
           "type": "processes",
