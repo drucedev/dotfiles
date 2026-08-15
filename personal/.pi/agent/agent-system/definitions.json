@@ -1,9 +1,10 @@
 {
   "defaults": { "agent": "developer" },
   "agents": [
-    { "id": "developer", "label": "Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "code-review"], "subagents": ["oracle", "reviewer", "librarian"] }, "guardrails": ["developer-git-safety"], "tiers": ["sen"], "defaultTier": "sen" }
+    { "id": "developer", "label": "Developer", "prose": ["prose/developer-core.md", "prose/git-conventions.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["codebase-design", "domain-modeling", "grilling", "tdd", "code-review"], "subagents": ["oracle", "reviewer", "librarian"] }, "guardrails": ["developer-git-safety"], "tiers": ["jun", "sen"], "defaultTier": "jun" }
   ],
   "tiers": [
+    { "id": "jun", "label": "Junior", "prose": "tiers/junior.md", "provider": "opencode-go", "model": "gpt-5.6-luna", "reasoning": "high" },
     { "id": "sen", "label": "Senior", "prose": "tiers/senior.md", "provider": "opencode-go", "model": "gpt-5.6-luna", "reasoning": "max" }
   ],
   "guardrails": [

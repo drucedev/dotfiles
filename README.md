@@ -72,7 +72,7 @@ the same flag if you ever unstow (`stow -D --no-folding ...`).
 
 The work and personal Pi agent-system directories are self-contained because
 Pi treats the real directory containing `definitions.json` as a trust boundary.
-Keep the developer and senior tier prose shared by both systems in sync.
+Keep the developer and jun/sen tier prose shared by both systems in sync.
 
 Then open a new shell. zinit clones itself and its plugins on first run.
 Machine-local secrets go in `~/.secrets` (never tracked).
