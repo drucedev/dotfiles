@@ -22,3 +22,9 @@
 
         struts {}
     }
+
+// Persistent workspaces 1-4, shown in the waybar
+workspace "1" { open-on-output "DP-5"; }
+workspace "2" { open-on-output "DP-5"; }
+workspace "3" { open-on-output "DP-5"; }
+workspace "4" { open-on-output "DP-5"; }
