@@ -85,6 +85,6 @@
   "custom/power": {
     "format": "󰐥",
     "tooltip-format": "Power\n\nSuper + Alt + Space",
-    "on-click": "/home/druce/.local/bin/power-menu"
+    "on-click": "${XDG_BIN_HOME:-$HOME/.local/bin}/power-menu"
   }
 }
