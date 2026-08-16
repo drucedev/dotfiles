@@ -97,6 +97,19 @@ case "$uu" in
      failures=$((failures + 1)) ;;
 esac
 
+# nixgc must come from the shared modules, not the OS extra — Odin runs
+# darwin.zsh (not linux.zsh) and still needs it. Simulate that by hiding the
+# OS extra; also only assertable where the guard passes (nix present).
+if command -v nix-env >/dev/null; then
+  case "$OS_PACKAGE" in linux) extra=linux.zsh ;; mac) extra=darwin.zsh ;; esac
+  os_extra="$SANDBOX_HOME/.config/zsh/$extra"
+  mv "$os_extra" "$os_extra.hidden"
+  check "nixgc defined without the OS extra (shared module)" "1" \
+        "$("${sandbox_env[@]}" zsh -ic 'echo "RESULT:nixgc=$(( $+functions[nixgc] ))"' \
+             2>/dev/null | sed -n 's/^RESULT:nixgc=//p')"
+  mv "$os_extra.hidden" "$os_extra"
+fi
+
 check "interactive: work.zsh absent stays unsourced" "0" \
       "$(echo "$inter" | sed -n 's/^RESULT:workfn=//p')"
 
