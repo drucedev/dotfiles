@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Cliamp
+Comment=Retro terminal music player
+Exec=cliamp
+Icon=cliamp
+Terminal=true
+Type=Application
+Categories=AudioVideo;Audio;Player;
