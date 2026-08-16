@@ -1,12 +1,9 @@
-# XDG Base Directories — values match the spec defaults; exported explicitly
-# so tool behavior is deterministic and other paths can compose from them.
-# Lives in .zshenv (not .zprofile) because Linux terminals usually start
-# non-login shells, and .zshenv is read by every zsh invocation.
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_BIN_HOME="$HOME/.local/bin" # de facto standard (systemd), not in the formal spec
-
-# proton-pass-cli: use the system keyring via Secret Service on Linux
-[[ "$OSTYPE" == linux* ]] && export PROTON_PASS_LINUX_KEYRING=dbus
+# Bootstrap: zsh has no native XDG support, so this is the one zsh file that
+# stays in $HOME — it redirects everything else into ~/.config/zsh.
+# ZDOTDIR is hardcoded: stow installs these files at $HOME/.config/zsh
+# regardless of the environment, and honoring a pre-set XDG_CONFIG_HOME
+# would point ZDOTDIR at a directory with no .zshrc — a bare shell.
+# zsh does not re-read .zshenv from $ZDOTDIR (verified on zsh 5.9), so the
+# XDG exports must be sourced explicitly or they would never load.
+export ZDOTDIR="$HOME/.config/zsh"
+[[ -f "$ZDOTDIR/.zshenv" ]] && source "$ZDOTDIR/.zshenv"

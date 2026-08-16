@@ -1,4 +1,4 @@
-# Work-Mac-only extras. Sourced after ~/.zshrc.darwin, so anything here
+# Work-Mac-only extras. Sourced after darwin.zsh, so anything here
 # overrides the mac package defaults.
 
 # Node version manager
@@ -7,14 +7,11 @@
 # Full system upgrade — this machine is managed by brew, not nix
 alias uu="bubu; npm outdated -g --depth=0; npm update -g"
 
-#AWSume alias to source the AWSume script
+# AWSume alias to source the AWSume script
 alias awsume="source awsume"
 
-#Auto-Complete function for AWSume
+# Auto-Complete function for AWSume
 fpath=($XDG_CONFIG_HOME/awsume/zsh-autocomplete/ $fpath)
-
-# AWS login helpers (work package)
-[[ -f ~/.aws-login ]] && source ~/.aws-login
 
 # Homebrew cleanup policy
 export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
@@ -25,13 +22,25 @@ zinit snippet OMZP::gradle
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::sdk
 
-# These snippets load after the compinit/cdreplay in ~/.zshrc — replay so
-# their compdef calls (gradle, sdk) actually register
+# These snippets load after the compinit/cdreplay in completion.zsh —
+# replay so their compdef calls (gradle, sdk) actually register
 zinit cdreplay -q
 
 # Completions for work CLIs
 (( $+commands[codex] )) && eval "$(codex completion zsh)"
 (( $+commands[acli] )) && source <(acli completion zsh)
+
+# AWS login helpers (folded in from the old ~/.aws-login)
+function aws-login() {
+    aws-sso-util login
+    awsume-choice
+}
+
+function awsume-choice() {
+    choice="$(FZF_DEFAULT_COMMAND='awsume -l' fzf --ansi)"
+    choice="$(echo "$choice" | awk '{ print $1 }')"
+    awsume $choice
+}
 
 # Sandboxed pi launcher
 pi-safe() {

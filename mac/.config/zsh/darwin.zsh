@@ -1,6 +1,6 @@
 # Extras shared by both Macs (work Mac + Odin)
 
 # Full system upgrade — pull the latest everything-nix (CI bumps flake.lock
-# daily) and rebuild nix-darwin. Overridden by .zshrc.work on the work Mac,
+# daily) and rebuild nix-darwin. Overridden by work.zsh on the work Mac,
 # which upgrades via brew instead.
 alias uu='(cd ~/everything-nix && git pull && sudo darwin-rebuild switch --flake .#$(uname -n))'
