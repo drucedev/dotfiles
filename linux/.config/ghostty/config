@@ -91,7 +91,7 @@ keybind = ctrl+e=search_selection
 keybind = ctrl+shift+f=end_search
 keybind = ctrl+g=navigate_search:next
 keybind = ctrl+shift+g=navigate_search:previous
-keybind = escape=end_search
+# Leave Escape unbound so terminal applications receive it.
 
 # Screen file actions
 keybind = ctrl+alt+j=write_screen_file:copy,plain
