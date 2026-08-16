@@ -1,8 +1,4 @@
 require("vim._core.ui2").enable({})
 
-require("options")
-require("keymaps")
-require("commands")
-require("pack")
-require("colorscheme")
-
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")

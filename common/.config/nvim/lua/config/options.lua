@@ -1,6 +1,10 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
 vim.g.netrw_banner = 0
 
-vim.opt.nu = true
+vim.opt.number = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -23,20 +27,11 @@ vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
 
-vim.opt.completopt = "menuone,noselect,fuzzy,nosort"
+vim.opt.completeopt = "menuone,noselect,fuzzy,nosort"
 vim.opt.shortmess:append("c")
 vim.opt.clipboard:append("unnamedplus")
--- vim.opt.guicursor = ""
 vim.opt.scrolloff = 8
 
 vim.opt.signcolumn = "yes"
 vim.o.cmdheight = 0
 vim.opt.termguicolors = true
-
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    callback = function()
-        vim.hl.on_yank()
-    end,
-})
-
