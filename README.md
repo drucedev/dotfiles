@@ -12,7 +12,7 @@ Touch points (a flavor switch touches exactly these):
 | --- | --- | --- |
 | ghostty | `common/.config/ghostty/common.conf` | `theme =` |
 | zed | `common/.config/zed/settings.json` | `theme`, `icon_theme` |
-| nvim | `common/.config/nvim/lua/colorscheme.lua` | `flavour` |
+| nvim | `common/.config/nvim/lua/plugins/colorscheme.lua` | `flavour` |
 | herdr | `common/.config/herdr/config.toml` | `theme.name` |
 | btop | `common/.config/btop/btop.conf` | vendored theme file |
 | waybar | `linux/.config/waybar/mocha.css` | `@import` in `style.css` |
