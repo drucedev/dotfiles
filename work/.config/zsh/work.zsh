@@ -1,6 +1,12 @@
 # Work-Mac-only extras. Sourced after darwin.zsh, so anything here
 # overrides the mac package defaults.
 
+function opencode() {
+    local hypoport_api_key
+    hypoport_api_key="$(command op read "op://kqulf33u7asgjh4vw5tjtaji5u/doypcrvws4eg3gfpjal2q7dupy/credential")" || return
+    HYPOPORT_API_KEY="$hypoport_api_key" command opencode "$@"
+}
+
 # Node version manager
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
 
