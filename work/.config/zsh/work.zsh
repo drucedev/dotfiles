@@ -47,6 +47,8 @@ pi-safe() {
   local args=(
     --no-private-home
     --rw-map /Users
+    --map /opt/homebrew
+    --env PATH
 
     --deny-path "$HOME/.aws"
     --deny-path "$HOME/.cdk"
@@ -64,8 +66,18 @@ pi-safe() {
     --deny-path "$HOME/Music"
     --deny-path "$HOME/Pictures"
 
+    --env AWS_ACCESS_KEY_ID
+    --env AWS_DEFAULT_REGION
+    --env AWS_REGION
+    --env AWS_SECRET_ACCESS_KEY
+    --env AWS_SESSION_TOKEN
+    --env AWSUME_EXPIRATION
+    --env AWSUME_PROFILE
+
+    --network
+    --macos-host-ipc
+    --terminal-passthrough
     --no-save-config
-    --exec
   )
 
   ai-jail "${args[@]}" -- pi "$@"
