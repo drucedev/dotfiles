@@ -44,21 +44,26 @@ function awsume-choice() {
 
 # Sandboxed pi launcher
 pi-safe() {
-  local ROOT
-  ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-
   local args=(
-    --map "$HOME"/.local/share
-    --map "$HOME"/.local/state
-    --map "$HOME"/.cache
-    --map "$HOME/.gitconfig"
+    --no-private-home
+    --rw-map /Users
 
-    --rw-map "$HOME/.pi"
-    --rw-map "$ROOT"
-    --rw-map "/tmp"
-    --rw-map "$HOME/dotfiles"
+    --deny-path "$HOME/.aws"
+    --deny-path "$HOME/.cdk"
+    --deny-path "$HOME/.cisco"
+    --deny-path "$HOME/.docker"
+    --deny-path "$HOME/.gnupg"
+    --deny-path "$HOME/.kube"
+    --deny-path "$HOME/.ssh"
+    --deny-path "$HOME/.terraform.d"
+    --deny-path "$HOME/.vpn"
+    --deny-path "$HOME/Desktop"
+    --deny-path "$HOME/Downloads"
+    --deny-path "$HOME/Library"
+    --deny-path "$HOME/Movies"
+    --deny-path "$HOME/Music"
+    --deny-path "$HOME/Pictures"
 
-    --ssh
     --no-save-config
     --exec
   )
