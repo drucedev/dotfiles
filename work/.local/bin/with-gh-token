@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+if (( $# == 0 )); then
+    print -u2 "usage: with-gh-token command [argument ...]"
+    exit 2
+fi
+
+github_user="$(gh api user --jq .login)" || exit
+github_token="$(gh auth token)" || exit
+
+export GITHUB_USER="$github_user"
+export GITHUB_TOKEN="$github_token"
+export PACKAGE_REGISTRY_USER="$github_user"
+export PACKAGE_REGISTRY_TOKEN="$github_token"
+export GITHUB_PERSONAL_ACCESS_TOKEN="$github_token"
+
+exec "$@"
