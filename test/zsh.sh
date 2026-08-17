@@ -76,7 +76,7 @@ inter="$("${sandbox_env[@]}" zsh -ic '
   echo "RESULT:ll=${aliases[ll]:-MISSING}"
   echo "RESULT:histfile=$HISTFILE"
   echo "RESULT:uu=${aliases[uu]:-MISSING}"
-  echo "RESULT:workfn=$(( $+functions[pi-safe] ))"
+  echo "RESULT:workfn=$(( $+functions[aws-login] ))"
   echo "RESULT:nixgc=$(( $+functions[nixgc] ))"
 ' 2>/dev/null | grep '^RESULT:')"
 

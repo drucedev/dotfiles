@@ -42,47 +42,6 @@ function awsume-choice() {
     awsume $choice
 }
 
-# Sandboxed pi launcher
-pi-safe() {
-  local args=(
-    --no-private-home
-    --rw-map /Users
-    --map /opt/homebrew
-    --env PATH
-
-    --deny-path "$HOME/.aws"
-    --deny-path "$HOME/.cdk"
-    --deny-path "$HOME/.cisco"
-    --deny-path "$HOME/.docker"
-    --deny-path "$HOME/.gnupg"
-    --deny-path "$HOME/.kube"
-    --deny-path "$HOME/.ssh"
-    --deny-path "$HOME/.terraform.d"
-    --deny-path "$HOME/.vpn"
-    --deny-path "$HOME/Desktop"
-    --deny-path "$HOME/Downloads"
-    --deny-path "$HOME/Library"
-    --deny-path "$HOME/Movies"
-    --deny-path "$HOME/Music"
-    --deny-path "$HOME/Pictures"
-
-    --env AWS_ACCESS_KEY_ID
-    --env AWS_DEFAULT_REGION
-    --env AWS_REGION
-    --env AWS_SECRET_ACCESS_KEY
-    --env AWS_SESSION_TOKEN
-    --env AWSUME_EXPIRATION
-    --env AWSUME_PROFILE
-
-    --network
-    --macos-host-ipc
-    --terminal-passthrough
-    --no-save-config
-  )
-
-  ai-jail "${args[@]}" -- pi "$@"
-}
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
