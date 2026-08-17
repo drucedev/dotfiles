@@ -88,9 +88,11 @@ git config --global init.defaultBranch main
 
 ## Install
 
+Clone this repository to `~/.dotfiles`, then stow the packages for the machine:
+
 ```sh
-git clone git@github.com:drucedev/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+git clone git@github.com:drucedev/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 stow --no-folding common mac work   # adjust per machine, see table above
 ```
 
@@ -108,7 +110,7 @@ pulling this repo they dangle (the package files are gone), and a dangling
 and clean up the stale pre-XDG history file:
 
 ```sh
-cd ~/dotfiles && git pull
+cd ~/.dotfiles && git pull
 rm -f ~/.zshrc ~/.zprofile ~/.aliases ~/.zshrc.darwin ~/.zshrc.linux \
       ~/.zshrc.work ~/.aws-login ~/.zsh_history
 stow --no-folding <packages>   # see table above
