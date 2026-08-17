@@ -1,6 +1,19 @@
 # Work-Mac-only extras. Sourced after darwin.zsh, so anything here
 # overrides the mac package defaults.
 
+function load-gh-token() {
+    local github_user github_token
+
+    github_user="$(command gh api user --jq .login)" || return
+    github_token="$(command gh auth token)" || return
+
+    export GITHUB_USER="$github_user"
+    export GITHUB_TOKEN="$github_token"
+    export PACKAGE_REGISTRY_USER="$github_user"
+    export PACKAGE_REGISTRY_TOKEN="$github_token"
+    export GITHUB_PERSONAL_ACCESS_TOKEN="$github_token"
+}
+
 function opencode() {
     local hypoport_api_key
     hypoport_api_key="$(command op read "op://kqulf33u7asgjh4vw5tjtaji5u/doypcrvws4eg3gfpjal2q7dupy/credential")" || return
