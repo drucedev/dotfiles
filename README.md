@@ -43,7 +43,8 @@ System-level config (packages, fonts, services) for the nix machines lives in
 ```
 common/    stowed everywhere — zsh modules (~/.config/zsh), starship, ghostty,
            nvim, btop, fastfetch, wezterm, zed, pnpm, git ignore, herdr
-mac/       stowed on both Macs — gnupg (pinentry-mac), zsh extras (darwin.zsh)
+mac/       stowed on both Macs — gnupg (pinentry-mac), zsh extras (darwin.zsh),
+           reproducible launchers for terminal apps
 linux/     stowed on Linux — niri, zsh extras (linux.zsh)
 personal/  stowed on non-work machines — personal pi agent-system
 work/      stowed only on the work Mac — work pi agent-system, aws login,
@@ -95,6 +96,17 @@ git clone git@github.com:drucedev/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 stow --no-folding common mac work   # adjust per machine, see table above
 ```
+
+On macOS, install the Cliamp Spotlight/Finder launcher after stowing. This
+creates a real app bundle in `~/Applications` and opens Cliamp in Ghostty:
+
+```sh
+install-macos-apps
+```
+
+Run the command again after changing its app metadata or launcher. Cliamp must
+be available on the login shell's `PATH`, and Ghostty must be installed in
+`/Applications`.
 
 `--no-folding` makes stow create real directories and link only files, so
 apps that write state into `~/.config/...` never write into this repo. Use

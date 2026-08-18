@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+
+source_dir="${XDG_DATA_HOME:-$HOME/.local/share}/macos-apps/cliamp"
+app_dir="$HOME/Applications/Cliamp.app"
+
+if [ ! -d /Applications/Ghostty.app ]; then
+  echo "install-macos-apps: Ghostty is not installed in /Applications" >&2
+  exit 1
+fi
+
+if [ ! -f "$source_dir/Info.plist" ] || [ ! -f "$source_dir/launcher" ] || [ ! -f "$source_dir/cliamp.icns" ]; then
+  echo "install-macos-apps: Cliamp app sources not found; stow the mac package first" >&2
+  exit 1
+fi
+
+/usr/bin/plutil -lint "$source_dir/Info.plist" >/dev/null
+
+rm -rf "$app_dir"
+mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
+cp "$source_dir/Info.plist" "$app_dir/Contents/Info.plist"
+cp "$source_dir/launcher" "$app_dir/Contents/MacOS/cliamp"
+cp "$source_dir/cliamp.icns" "$app_dir/Contents/Resources/cliamp.icns"
+chmod 755 "$app_dir/Contents/MacOS/cliamp"
+
+# Prompt Launch Services to notice updates without requiring a logout.
+/usr/bin/touch "$app_dir"
+echo "Installed $app_dir"

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Finder-launched apps do not inherit the shell's PATH. Let a login shell
+# resolve cliamp so this works with either Homebrew or nix-darwin.
+exec /usr/bin/open -na /Applications/Ghostty.app --args \
+  -e /bin/zsh -lic 'exec cliamp'
