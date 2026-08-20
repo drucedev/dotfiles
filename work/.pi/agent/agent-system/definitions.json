@@ -7,7 +7,7 @@
     { "id": "knowledge-keeper", "label": "Knowledge Keeper", "prose": ["prose/knowledge-keeper.md"], "capabilities": { "tools": ["read", "bash", "edit", "write"], "skills": ["llm-wiki", "jira"], "subagents": ["oracle"] }, "guardrails": ["knowledge-source-integrity"], "tiers": ["keep", "yap"], "defaultTier": "keep" }
   ],
   "tiers": [
-    { "id": "jun", "label": "Junior", "prose": "tiers/junior.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "low" },
+    { "id": "jun", "label": "Junior", "prose": "tiers/junior.md", "provider": "openai-codex", "model": "gpt-5.6-luna", "reasoning": "high" },
     { "id": "sen", "label": "Senior", "prose": "tiers/senior.md", "provider": "openai-codex", "model": "gpt-5.6-sol", "reasoning": "high" },
     { "id": "keep", "label": "Keeper", "provider": "openai-codex", "model": "gpt-5.6-terra", "reasoning": "high" },
     { "id": "yap", "label": "Yapper", "provider": "amazon-bedrock", "model": "eu.anthropic.claude-opus-5", "reasoning": "medium" }
