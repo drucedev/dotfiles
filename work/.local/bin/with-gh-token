@@ -6,7 +6,7 @@ if (( $# == 0 )); then
 fi
 
 github_user="$(gh api user --jq .login)" || exit
-github_token="$(gh auth token)" || exit
+github_token="$(op read op://kqulf33u7asgjh4vw5tjtaji5u/wnno5mxrdgm2sgdsrowhsfhkhy/credential)" || exit
 
 export GITHUB_USER="$github_user"
 export GITHUB_TOKEN="$github_token"
