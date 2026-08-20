@@ -1,6 +1,6 @@
 # Aliases shared by all machines. Machine-specific aliases live in
-# $ZDOTDIR/linux.zsh / darwin.zsh / work.zsh (stowed from the
-# linux/mac/work packages).
+# $ZDOTDIR/linux.zsh / darwin.zsh, with optional profile aliases supplied by
+# external Stow packages.
 # The general format of an alias is as follows
 #	alias short_cut_name='commands to carry out'
 

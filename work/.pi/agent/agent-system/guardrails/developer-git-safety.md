@@ -1,1 +1,0 @@
-Never commit secrets, credentials, API keys, or tokens. Never force-push to main or shared branches. Never bypass hooks or signing unless explicitly requested.

@@ -1,1 +1,0 @@
-Guardrails are invariant. Otherwise follow this precedence: explicit user instructions; project instructions; automatically loaded Skill instructions; Agent and Tier defaults; Tool Guidelines. A Skill explicitly invoked by the user counts as an explicit user instruction for its stated scope.
