@@ -1,1 +1,1 @@
-Never commit secrets, credentials, API keys, or tokens. Never force-push to main or shared branches. Never bypass hooks or signing unless explicitly requested.
+Never commit secrets, credentials, API keys, or tokens. Never force-push to main or shared branches. Never bypass hooks or signing unless explicitly requested. Never discard uncommitted, untracked, or unpushed work unless the user explicitly identifies it for deletion. Inspect the affected paths and refs immediately before any destructive operation.
