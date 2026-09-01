@@ -30,9 +30,9 @@ GNU stow dotfiles for all machines, organized into per-scope packages:
 
 | Machine | OS | Managed by | Stow packages |
 | --- | --- | --- | --- |
-| Odin (home Mac) | macOS | nix-darwin via [everything-nix](../everything-nix) | `common mac personal` |
-| Thor (home PC) | NixOS | NixOS via everything-nix | `common linux personal` |
-| Ivaldi (server) | NixOS | NixOS via everything-nix | `common linux personal` (optional) |
+| Odin (home Mac) | macOS | nix-darwin via [everything-nix](../everything-nix) | `common mac` |
+| Thor (home PC) | NixOS | NixOS via everything-nix | `common linux` |
+| Ivaldi (server) | NixOS | NixOS via everything-nix | `common linux` (optional) |
 
 System-level config (packages, fonts, services) for the nix machines lives in
 `~/everything-nix` — this repo only manages `$HOME` dotfiles.
@@ -45,7 +45,6 @@ common/    stowed everywhere — zsh modules (~/.config/zsh), starship, ghostty,
 mac/       stowed on macOS — gnupg (pinentry-mac), zsh extras (darwin.zsh),
            reproducible launchers for terminal apps
 linux/     stowed on Linux — niri, zsh extras (linux.zsh)
-personal/  stowed on personal machines — personal pi agent-system
 ```
 
 zsh has no native XDG support, so a two-line `~/.zshenv` bootstrap points
@@ -85,7 +84,14 @@ Clone this repository to `~/.dotfiles`, then stow the packages for the machine:
 ```sh
 git clone git@github.com:drucedev/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow --no-folding common mac personal   # adjust per machine, see table above
+stow --no-folding common mac   # adjust per machine, see table above
+```
+
+Agent configuration is installed separately from `~/Projects/self/agent-kit`:
+
+```sh
+cd ~/Projects/self/agent-kit
+./scripts/install.sh all --profile personal
 ```
 
 On macOS, install the Cliamp Spotlight/Finder launcher after stowing. This
@@ -119,11 +125,6 @@ rm -f ~/.zshrc ~/.zprofile ~/.aliases ~/.zshrc.darwin ~/.zshrc.linux \
 stow --no-folding <packages>   # see table above
 ./test/zsh.sh                  # sandboxed, safe to run anywhere
 ```
-
-Then open a new shell.
-
-The personal Pi agent-system directory is self-contained because Pi treats the
-real directory containing `definitions.json` as a trust boundary.
 
 Then open a new shell. zinit clones itself and its plugins on first run.
 Verify the shell with `test/zsh.sh` — it builds a sandbox home, so it is
