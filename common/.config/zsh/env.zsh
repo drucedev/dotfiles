@@ -1,5 +1,13 @@
 # Environment basics and PATH composition
 
+# Default editor
+export EDITOR=nvim
+export VISUAL="$EDITOR"
+
+# Paging
+export PAGER=less
+export MANPAGER='less -R'
+
 # Set language environment
 export LANG=en_US.UTF-8
 

@@ -1,5 +1,7 @@
 # Extras shared by both Macs (work Mac + Odin)
 
+export BROWSER=open
+
 # Full system upgrade — pull the latest everything-nix (CI bumps flake.lock
 # daily) and rebuild nix-darwin. Overridden by work.zsh on the work Mac,
 # which upgrades via brew instead.

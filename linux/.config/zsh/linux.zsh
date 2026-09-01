@@ -1,5 +1,7 @@
 # Extras for Linux machines (Thor, Ivaldi — NixOS)
 
+export BROWSER=xdg-open
+
 eval "$(direnv hook zsh)"
 
 # Full system upgrade — pull the latest everything-nix (CI bumps flake.lock
