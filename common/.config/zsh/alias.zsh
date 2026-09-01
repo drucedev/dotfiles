@@ -16,5 +16,8 @@ if [ -x "$(command -v bat)" ]; then
     alias cat='bat'
 fi
 
+# Neovim shortcut
+alias v='nvim'
+
 # Show sorted used memory of folders
 alias used='du -sch * | sort -rh'
