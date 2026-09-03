@@ -5,9 +5,9 @@ binds {
 
     // ─── Applications ───
     Mod+Shift+K                    { show-hotkey-overlay; }
-    Mod+Return                          hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty"; }
-    Mod+Space                           hotkey-overlay-title="Open App Launcher: Fuzzel" { spawn "fuzzel"; }
-    Mod+B                               hotkey-overlay-title="Open Browser: Brave" { spawn "brave"; }
+    ALT+Return                          hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty"; }
+    ALT+Space                           hotkey-overlay-title="Open App Launcher: Fuzzel" { spawn "fuzzel"; }
+    ALT+B                               hotkey-overlay-title="Open Browser: Brave" { spawn "brave"; }
     Mod+ALT+L                           hotkey-overlay-title="Lock Screen: Swaylock" { spawn-sh "swaylock -f"; }
     Mod+ALT+Space                       hotkey-overlay-title="Power Menu" { spawn-sh "${XDG_BIN_HOME:-$HOME/.local/bin}/power-menu"; }
 
@@ -22,7 +22,7 @@ binds {
     XF86AudioMicMute                    allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // ─── Window Movement and Focus ───
-    Mod+Q                               { close-window; }
+    ALT+Q                               { close-window; }
 
     Mod+Left                            { focus-column-left; }
     Mod+H                               { focus-column-left; }
