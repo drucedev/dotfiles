@@ -41,10 +41,11 @@ System-level config (packages, fonts, services) for the nix machines lives in
 
 ```
 common/    stowed everywhere — zsh modules (~/.config/zsh), starship, ghostty,
-           nvim, btop, fastfetch, wezterm, zed, pnpm, git ignore, herdr
+           nvim, btop, fastfetch, zed, mise, pnpm, herdr, cliamp, gh
 mac/       stowed on macOS — gnupg (pinentry-mac), zsh extras (darwin.zsh),
            reproducible launchers for terminal apps
-linux/     stowed on Linux — niri, zsh extras (linux.zsh)
+linux/     stowed on Linux — niri, desktop defaults (mimeapps, user-dirs),
+           zsh extras (linux.zsh)
 ```
 
 zsh has no native XDG support, so a two-line `~/.zshenv` bootstrap points
@@ -59,7 +60,7 @@ Odin and Thor: `git`, `zsh`, `stow`. Ivaldi's user package set is deferred
 until its server role is designed.
 
 **Odin / Thor**: CLI tools (stow, starship, zoxide, fzf, lsd, ghostty,
-pnpm, …) are installed by everything-nix. Thor's Wayland desktop packages
+mise, pnpm, …) are installed by everything-nix. Thor's Wayland desktop packages
 (Waybar, Fuzzel, and Swaylock) are installed by its host configuration.
 Ivaldi's package set is intentionally deferred. Two gaps to be aware of:
 
