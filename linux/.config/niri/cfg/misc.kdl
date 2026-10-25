@@ -1,6 +1,13 @@
     prefer-no-csd
     screenshot-path null
 
+    // Without an installed theme named "default", niri draws its built-in 64px cursor,
+    // which scales with the output and looks a different size on each screen.
+    cursor {
+        xcursor-theme "Adwaita"
+        xcursor-size 24
+    }
+
     environment {
         ELECTRON_OZONE_PLATFORM_HINT "auto"
         QT_QPA_PLATFORM "wayland"
