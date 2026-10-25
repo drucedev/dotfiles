@@ -16,7 +16,7 @@ if (( $+commands[nix-env] )); then
     local gens
     gens=$(sudo nix-env -p /nix/var/nix/profiles/system --list-generations \
            | awk '/current/ { next } { g[++n]=$1 } END { for (i=1; i<=n-10; i++) print g[i] }')
-    [ -n "$gens" ] && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations $gens
+    [ -n "$gens" ] && sudo nix-env -p /nix/var/nix/profiles/system --delete-generations ${=gens}
     sudo nix-collect-garbage
   }
 fi

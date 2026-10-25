@@ -110,6 +110,46 @@ if command -v nix-env >/dev/null; then
   mv "$os_extra.hidden" "$os_extra"
 fi
 
+# nixgc under zsh, with stubs ahead on PATH standing in for sudo, nix-env and
+# nix-collect-garbage. The stubs log argv with %q, so an argument holding a
+# newline shows as one $'...' token rather than as separate arguments.
+stubs="$SANDBOX/stubs"
+calls="$SANDBOX/nixgc-calls.log"
+mkdir "$stubs"
+: > "$calls"
+cat > "$stubs/sudo" <<'EOF'
+#!/usr/bin/env bash
+exec "$@"
+EOF
+cat > "$stubs/nix-env" <<'EOF'
+#!/usr/bin/env bash
+printf '[%q]' "$@" >> "$NIXGC_CALLS"; echo >> "$NIXGC_CALLS"
+if [[ "$*" == *--list-generations* ]]; then
+  # 15 generations with generation 15 current, in real nix-env's columns
+  for g in {1..15}; do
+    current=""
+    (( g == 15 )) && current="   (current)"
+    printf '%4d   2026-01-%02d 12:00:00%s\n' "$g" "$g" "$current"
+  done
+fi
+EOF
+cat > "$stubs/nix-collect-garbage" <<'EOF'
+#!/usr/bin/env bash
+echo '[nix-collect-garbage]' >> "$NIXGC_CALLS"
+EOF
+chmod +x "$stubs"/*
+
+# nixgc is defined only when nix-env is on PATH at startup, so run it in an
+# interactive shell. Effects are asserted from the call log, not the status.
+"${sandbox_env[@]}" PATH="$stubs:$PATH" NIXGC_CALLS="$calls" \
+  zsh -ic 'nixgc' >/dev/null 2>&1 || true
+
+check "nixgc deletes non-current generations except the newest 10, one argument each" \
+      "[-p][/nix/var/nix/profiles/system][--delete-generations][1][2][3][4]" \
+      "$(sed -n '/--delete-generations/p' "$calls")"
+check "nixgc runs nix-collect-garbage after the deletes" \
+      "[nix-collect-garbage]" "$(tail -n 1 "$calls")"
+
 check "interactive: work.zsh absent stays unsourced" "0" \
       "$(echo "$inter" | sed -n 's/^RESULT:workfn=//p')"
 
