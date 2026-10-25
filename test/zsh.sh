@@ -28,9 +28,9 @@ if [ -d "$REAL_HOME/.local/share/zinit" ]; then
   cp -r "$REAL_HOME/.local/share/zinit" "$SANDBOX_HOME/.local/share/zinit"
 fi
 
-# The caller's shell exports XDG_*; a fresh login would not
+# The caller's shell exports XDG_* and ZDOTDIR; a fresh login would not
 sandbox_env=(env -u XDG_CONFIG_HOME -u XDG_DATA_HOME -u XDG_STATE_HOME \
-                -u XDG_CACHE_HOME -u XDG_BIN_HOME HOME="$SANDBOX_HOME")
+                -u XDG_CACHE_HOME -u XDG_BIN_HOME -u ZDOTDIR HOME="$SANDBOX_HOME")
 
 # alias.zsh defines ll only when lsd exists — both states are correct
 if command -v lsd >/dev/null; then want_ll="lsd -l"; else want_ll="MISSING"; fi
@@ -62,7 +62,7 @@ check "login: ZDOTDIR set before .zprofile" "$SANDBOX_HOME/.config/zsh" \
 # ~/.config/zsh regardless, and composing ZDOTDIR from the env would leave
 # the shell with no .zshrc at all
 hijack="$(env -u XDG_DATA_HOME -u XDG_STATE_HOME -u XDG_CACHE_HOME \
-            -u XDG_BIN_HOME XDG_CONFIG_HOME="$SANDBOX/bogus-xdg" \
+            -u XDG_BIN_HOME -u ZDOTDIR XDG_CONFIG_HOME="$SANDBOX/bogus-xdg" \
             HOME="$SANDBOX_HOME" \
             zsh -ic 'echo "RESULT:zdot=$ZDOTDIR"; echo "RESULT:ll=${aliases[ll]:-MISSING}"' \
          2>/dev/null | sed -n 's/^RESULT://p')"
