@@ -125,10 +125,10 @@ cat > "$stubs/nix-env" <<'EOF'
 #!/usr/bin/env bash
 printf '[%q]' "$@" >> "$NIXGC_CALLS"; echo >> "$NIXGC_CALLS"
 if [[ "$*" == *--list-generations* ]]; then
-  # 15 generations with generation 15 current, in real nix-env's columns
+  # 15 generations, 3 current as after a rollback: the 10 kept must include it
   for g in {1..15}; do
     current=""
-    (( g == 15 )) && current="   (current)"
+    (( g == 3 )) && current="   (current)"
     printf '%4d   2026-01-%02d 12:00:00%s\n' "$g" "$g" "$current"
   done
 fi
@@ -144,8 +144,8 @@ chmod +x "$stubs"/*
 "${sandbox_env[@]}" PATH="$stubs:$PATH" NIXGC_CALLS="$calls" \
   zsh -ic 'nixgc' >/dev/null 2>&1 || true
 
-check "nixgc deletes non-current generations except the newest 10, one argument each" \
-      "[-p][/nix/var/nix/profiles/system][--delete-generations][1][2][3][4]" \
+check "nixgc keeps 10 generations in total (current included), one argument each" \
+      "[-p][/nix/var/nix/profiles/system][--delete-generations][1][2][4][5][6]" \
       "$(sed -n '/--delete-generations/p' "$calls")"
 check "nixgc runs nix-collect-garbage after the deletes" \
       "[nix-collect-garbage]" "$(tail -n 1 "$calls")"
