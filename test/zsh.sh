@@ -80,6 +80,7 @@ inter="$("${sandbox_env[@]}" zsh -ic '
   echo "RESULT:histfile=$HISTFILE"
   echo "RESULT:ampcomp=${_comps[amp]:-MISSING}"
   echo "RESULT:uu=${aliases[uu]:-MISSING}"
+  echo "RESULT:picm=${aliases[picm]:-MISSING}"
   echo "RESULT:workfn=$(( $+functions[aws-login] ))"
   echo "RESULT:nixgc=$(( $+functions[nixgc] ))"
 ' 2>/dev/null | grep '^RESULT:')"
@@ -91,6 +92,9 @@ check "interactive: HISTFILE stays in state home" \
       "$(echo "$inter" | sed -n 's/^RESULT:histfile=//p')"
 check "interactive: amp completion registered for amp" "$want_amp" \
       "$(echo "$inter" | sed -n 's/^RESULT:ampcomp=//p')"
+check "interactive: picm alias starts pi with codemode" \
+      "pi -ne -e builtin:codemode --tools +codemode" \
+      "$(echo "$inter" | sed -n 's/^RESULT:picm=//p')"
 
 # Registration alone is not enough: drive _amp directly, with compadd stubbed
 # to print what it would offer for `amp th`

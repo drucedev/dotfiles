@@ -19,5 +19,8 @@ fi
 # Neovim shortcut
 alias v='nvim'
 
+# Pi coding agent with the codemode extension and its tool enabled
+alias picm='pi -ne -e builtin:codemode --tools +codemode'
+
 # Show sorted used memory of folders
 alias used='du -sch * | sort -rh'
