@@ -5,6 +5,19 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   (( $+commands[starship] )) && eval "$(starship init zsh)"
 fi
 
+# Amp's completion script embeds a snapshot of its command tree and takes about
+# 100 ms to generate, so it is generated on the first amp TAB rather than at
+# shell start. Not cached on disk: amp self-updates, which would leave a stale
+# snapshot. compdef needs compinit, which completion.zsh has already run.
+if (( $+commands[amp] )); then
+  _amp() {
+    unfunction _amp
+    eval "$(amp completions zsh)"
+    _amp "$@"
+  }
+  compdef _amp amp
+fi
+
 # Collect nix garbage, keeping only 10 system generations in total, the
 # current one included — shared by NixOS and nix-darwin (same system
 # profile path on both).

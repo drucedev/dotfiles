@@ -35,6 +35,9 @@ sandbox_env=(env -u XDG_CONFIG_HOME -u XDG_DATA_HOME -u XDG_STATE_HOME \
 # alias.zsh defines ll only when lsd exists — both states are correct
 if command -v lsd >/dev/null; then want_ll="lsd -l"; else want_ll="MISSING"; fi
 
+# tool.zsh registers amp's completion only when amp exists — both states are correct
+if command -v amp >/dev/null; then want_amp="_amp"; else want_amp="MISSING"; fi
+
 failures=0
 check() { # check <description> <expected> <actual>
   if [[ "$2" == "$3" ]]; then
@@ -75,6 +78,7 @@ check "foreign XDG_CONFIG_HOME: modules still load" "$want_ll" \
 inter="$("${sandbox_env[@]}" zsh -ic '
   echo "RESULT:ll=${aliases[ll]:-MISSING}"
   echo "RESULT:histfile=$HISTFILE"
+  echo "RESULT:ampcomp=${_comps[amp]:-MISSING}"
   echo "RESULT:uu=${aliases[uu]:-MISSING}"
   echo "RESULT:workfn=$(( $+functions[aws-login] ))"
   echo "RESULT:nixgc=$(( $+functions[nixgc] ))"
@@ -85,6 +89,20 @@ check "interactive: alias ll defined by alias.zsh" "$want_ll" \
 check "interactive: HISTFILE stays in state home" \
       "$SANDBOX_HOME/.local/state/zsh/history" \
       "$(echo "$inter" | sed -n 's/^RESULT:histfile=//p')"
+check "interactive: amp completion registered for amp" "$want_amp" \
+      "$(echo "$inter" | sed -n 's/^RESULT:ampcomp=//p')"
+
+# Registration alone is not enough: drive _amp directly, with compadd stubbed
+# to print what it would offer for `amp th`
+if command -v amp >/dev/null; then
+  offers="$("${sandbox_env[@]}" zsh -ic '
+    compset() { :; }
+    compadd() { print -r -- "RESULT:$*"; }
+    words=(amp th); CURRENT=2
+    _amp
+  ' 2>/dev/null | grep -cw threads || true)"
+  check "amp completion offers subcommands (amp th → threads)" "1" "$offers"
+fi
 
 uu="$(echo "$inter" | sed -n 's/^RESULT:uu=//p')"
 case "$(uname -s)" in
