@@ -16,6 +16,7 @@ Touch points (a flavor switch touches exactly these):
 | herdr | `common/.config/herdr/config.toml` | `theme.name` |
 | btop | `common/.config/btop/btop.conf` | vendored theme file |
 | waybar | `linux/.config/waybar/mocha.css` | `@import` in `style.css` |
+| quickshell | `linux/.config/quickshell/druce/shell.qml` | base and mauve colors |
 | fuzzel | `linux/.config/fuzzel/catppuccin-mocha.ini` | `include=` in `fuzzel.ini` |
 | swaylock | `linux/.config/swaylock/config` | whole file |
 | niri | `linux/.config/niri/cfg/layout.kdl` | focus-ring colors |
@@ -44,8 +45,8 @@ common/    stowed everywhere — zsh modules (~/.config/zsh), starship, ghostty,
            nvim, btop, fastfetch, zed, mise, pnpm, herdr, cliamp, gh
 mac/       stowed on macOS — gnupg (pinentry-mac), zsh extras (darwin.zsh),
            reproducible launchers for terminal apps
-linux/     stowed on Linux — niri, desktop defaults (mimeapps, user-dirs),
-           zsh extras (linux.zsh)
+linux/     stowed on Linux — niri, quickshell, desktop defaults (mimeapps,
+           user-dirs), zsh extras (linux.zsh)
 ```
 
 zsh has no native XDG support, so a two-line `~/.zshenv` bootstrap points
@@ -109,6 +110,24 @@ be available on the login shell's `PATH`, and Ghostty must be installed in
 `--no-folding` makes stow create real directories and link only files, so
 apps that write state into `~/.config/...` never write into this repo. Use
 the same flag if you ever unstow (`stow -D --no-folding ...`).
+
+## Quickshell (Linux, manual only)
+
+The `druce` config is a 32px top bar with a centered 24-hour clock, using
+Catppuccin Mocha base and a mauve accent. Quickshell is already provided by
+NixOS; no dependencies need installing here.
+
+From the repository root, stow the Linux package and run it manually:
+
+```sh
+stow --no-folding -t "$HOME" linux
+qs -c druce
+```
+
+This links `linux/.config/quickshell/druce/shell.qml` into
+`~/.config/quickshell/druce/shell.qml`. Press Ctrl+C to stop the bar.
+Waybar and Niri autostart are unchanged; running this adds a separate bar
+alongside Waybar rather than replacing it.
 
 ## Upgrading a machine from the monolithic layout
 
