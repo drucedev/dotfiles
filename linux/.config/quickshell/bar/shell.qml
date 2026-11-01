@@ -23,11 +23,14 @@ ShellRoot {
             WlrLayershell.namespace: "quickshell-bar"
             WlrLayershell.layer: WlrLayer.Top
 
-            Workspaces {
-                service: niri
+            Row {
                 anchors.left: parent.left
                 anchors.leftMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
+                spacing: 12
+
+                Workspaces { service: niri }
+                FocusedApp { service: niri }
             }
 
             Clock { anchors.centerIn: parent }

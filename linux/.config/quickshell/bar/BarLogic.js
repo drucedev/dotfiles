@@ -75,6 +75,41 @@ function workspaceEvent(state, event) {
     return state;
 }
 
+// A focused WindowOpenedOrChanged means every other window lost focus. Layout
+// events are ignored so resizing does not rebuild the window list.
+function windowEvent(state, event) {
+    if (event.WindowsChanged) return event.WindowsChanged.windows.slice();
+    if (event.WindowOpenedOrChanged) {
+        const window = event.WindowOpenedOrChanged.window;
+        if (!window) return state;
+        const rest = state.filter(item => item.id !== window.id);
+        const next = window.is_focused
+            ? rest.map(item => Object.assign({}, item, { is_focused: false }))
+            : rest;
+        next.push(window);
+        return next;
+    }
+    if (event.WindowClosed) return state.filter(item => item.id !== event.WindowClosed.id);
+    if (event.WindowFocusChanged) {
+        const id = event.WindowFocusChanged.id;
+        return state.map(item => Object.assign({}, item, { is_focused: item.id === id }));
+    }
+    return state;
+}
+
+function focusedWindow(windows) {
+    return windows.find(window => window.is_focused) || null;
+}
+
+function appName(window, desktopName) {
+    if (!window) return "";
+    const fromDesktop = typeof desktopName === "string" ? desktopName.trim() : "";
+    if (fromDesktop) return fromDesktop;
+    const appId = typeof window.app_id === "string" ? window.app_id.trim() : "";
+    if (appId) return appId;
+    return typeof window.title === "string" ? window.title.trim() : "";
+}
+
 const workspaceMarks = {
     terminal: { icon: "", label: "Ghostty" },
     code: { icon: "", label: "T3 Code, Zed" },

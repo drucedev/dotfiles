@@ -120,7 +120,10 @@ popups (provided by NixOS here), NetworkManager's `nmcli`, and the existing Ghos
 
 - Left: Niri workspaces from all outputs, ordered by output and workspace index;
   click to focus by stable ID. Named workspaces show a fixed icon; other workspaces
-  show their number once created. The focused workspace is mauve.
+  show their number once created. The focused workspace is mauve. The focused
+  application's name follows the workspaces: its desktop entry name, otherwise its
+  app ID, otherwise its window title. Hover shows the window title when that differs.
+  The name hides when no window is focused.
 - Center: English weekday and 24-hour time; left-click toggles to English date, ISO
   week, and year. No clock tooltip or calendar popup.
 - Right: 16px tray icons, network, audio, CPU, and power. Tray icons support
@@ -133,7 +136,7 @@ popups (provided by NixOS here), NetworkManager's `nmcli`, and the existing Ghos
   subprocesses; left-click opens `ghostty -e btop`.
 - Power: left-click opens the existing Fuzzel `power-menu`; hover turns the icon red.
 
-Niri uses a reconnecting event stream and a separate action socket. Audio,
+Niri uses a reconnecting event stream for workspaces and windows, and a separate action socket. Audio,
 network icons, and tray contents update through native services. The clock ticks
 once a minute; `nmcli` runs only to fetch a hovered network tooltip. There is no
 plugin framework, background command polling, or additional daemon.

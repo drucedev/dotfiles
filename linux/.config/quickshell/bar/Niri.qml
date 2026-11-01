@@ -7,6 +7,8 @@ Scope {
     id: root
     property string socketPath: Quickshell.env("NIRI_SOCKET")
     property var workspaces: []
+    property var windows: []
+    readonly property var focusedWindow: Logic.focusedWindow(windows)
     property int retryDelay: 1000
 
     function reconnect() {
@@ -40,6 +42,7 @@ Scope {
                 write('"EventStream"\n');
                 flush();
             } else {
+                root.windows = [];
                 root.workspaces = [];
                 root.scheduleReconnect();
             }
@@ -56,6 +59,8 @@ Scope {
                         return;
                     }
                     root.workspaces = Logic.workspaceEvent(root.workspaces, event);
+                    const windows = Logic.windowEvent(root.windows, event);
+                    if (windows !== root.windows) root.windows = windows;
                     if (event.WorkspacesChanged) root.retryDelay = 1000;
                 } catch (error) {
                     console.warn("Invalid Niri event: " + error);

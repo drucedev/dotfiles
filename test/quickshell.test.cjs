@@ -47,6 +47,21 @@ test('QML component interactions and English clock under a German session locale
 }));
 test('QML tooltips render in a separate window outside the thin panel', () => componentTest('tooltips.qml'));
 
+test('focused app label uses the desktop name and falls back without one', async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'quickshell-desktop-test-'));
+    try {
+        fs.mkdirSync(path.join(dir, 'applications'));
+        fs.writeFileSync(path.join(dir, 'applications', 'bar-test-app.desktop'), `[Desktop Entry]
+Type=Application
+Name=Test App
+Exec=true
+`);
+        await componentTest('focused-app.qml', { XDG_DATA_HOME: dir });
+    } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+    }
+});
+
 test('QML services update network state, reject stale IP reads, sample CPU, and dispatch launcher commands', async () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'quickshell-command-test-'));
     try {
@@ -102,6 +117,52 @@ test('workspace snapshots replace state and sort all outputs without losing dupl
     assert.equal(logic.workspaceLabel(workspace(8, 'HDMI-A-5', 3)), 'Workspace 3');
 });
 
+const niriWindow = (id, extra = {}) => ({
+    id, title: null, app_id: null, is_focused: false, ...extra
+});
+
+test('window events replace, focus, and close windows without mutating previous state', () => {
+    const initial = [niriWindow(1, { app_id: 'ghostty', title: 'zsh', is_focused: true }),
+        niriWindow(2, { app_id: 'discord', title: 'Friends' })];
+    const replaced = logic.windowEvent([], { WindowsChanged: { windows: initial } });
+    assert.equal(logic.focusedWindow(replaced).id, 1);
+    assert.equal(logic.windowEvent(replaced, { KeyboardLayoutsChanged: {} }), replaced);
+    assert.equal(logic.windowEvent(replaced, { WindowLayoutsChanged: { changes: [[1, {}]] } }), replaced);
+
+    const opened = logic.windowEvent(replaced, {
+        WindowOpenedOrChanged: { window: niriWindow(3, { app_id: 'zed', title: 'main.rs', is_focused: true }) }
+    });
+    assert.equal(logic.focusedWindow(opened).app_id, 'zed');
+    assert.equal(opened.find(window => window.id === 1).is_focused, false);
+    assert.equal(replaced[0].is_focused, true);
+
+    const moved = logic.windowEvent(opened, { WindowFocusChanged: { id: 2 } });
+    assert.equal(logic.focusedWindow(moved).id, 2);
+    assert.equal(opened.find(window => window.id === 3).is_focused, true);
+    const none = logic.windowEvent(moved, { WindowFocusChanged: { id: null } });
+    assert.equal(logic.focusedWindow(none), null);
+    const closed = logic.windowEvent(moved, { WindowClosed: { id: 2 } });
+    assert.equal(closed.some(window => window.id === 2), false);
+    assert.equal(logic.focusedWindow(closed), null);
+    assert.equal(logic.focusedWindow(logic.windowEvent(closed, { WindowFocusChanged: { id: 99 } })), null);
+
+    const updated = logic.windowEvent(closed, {
+        WindowOpenedOrChanged: { window: niriWindow(1, { app_id: 'ghostty', title: 'updated', is_focused: false }) }
+    });
+    assert.equal(updated.find(window => window.id === 1).title, 'updated');
+    assert.equal(updated.filter(window => window.id === 1).length, 1);
+    assert.equal(logic.windowEvent(updated, { WindowOpenedOrChanged: {} }), updated);
+});
+
+test('focused app name prefers the desktop entry, then the app id, then the title', () => {
+    const window = { app_id: 'com.mitchellh.ghostty', title: 'zsh' };
+    assert.equal(logic.appName(null, 'Ghostty'), '');
+    assert.equal(logic.appName(window, ' Ghostty '), 'Ghostty');
+    assert.equal(logic.appName(window, ' '), 'com.mitchellh.ghostty');
+    assert.equal(logic.appName({ app_id: '  ', title: ' Only Title ' }, ''), 'Only Title');
+    assert.equal(logic.appName({ app_id: null, title: null }, null), '');
+});
+
 test('workspace events distinguish active per output from globally focused and do not mutate state', () => {
     const state = [workspace(1, 'DP-5', 1, { is_active: true, is_focused: true }),
         workspace(2, 'DP-5', 2), workspace(7, 'HDMI-A-5', 1, { is_active: true })];
@@ -149,6 +210,10 @@ test('Niri adapter subscribes, handles split frames, focuses by ID on another so
                     subscribed = true;
                     subscriptions++;
                     socket.write('{"Ok":"Handled"}\n');
+                    const windows = subscriptions === 1
+                        ? [niriWindow(4, { app_id: 'bar-test-app', is_focused: true })]
+                        : [niriWindow(8, { app_id: 'other-app', is_focused: true })];
+                    socket.write(JSON.stringify({ WindowsChanged: { windows } }) + '\n');
                     const snapshot = JSON.stringify({ WorkspacesChanged: { workspaces: subscriptions === 1
                         ? [workspace(1, 'DP-5', 1), workspace(7, 'HDMI-A-5', 1)]
                         : [workspace(9, 'DP-5', 1)] } }) + '\n';

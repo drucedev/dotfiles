@@ -10,14 +10,29 @@ ShellRoot {
         id: niri
         onWorkspacesChanged: {
             if (root.phase === 0 && workspaces.length === 2) {
+                if (!niri.focusedWindow || niri.focusedWindow.app_id !== "bar-test-app") {
+                    console.error("missing focused app after subscribe");
+                    Qt.exit(1);
+                    return;
+                }
                 root.phase = 1;
                 // Requests must not be written on the EventStream socket.
                 Qt.callLater(() => {
                     if (!niri.focus(7)) Qt.exit(1);
                 });
             } else if (root.phase === 1 && workspaces.length === 0) {
+                if (niri.focusedWindow) {
+                    console.error("focused app survived disconnect");
+                    Qt.exit(1);
+                    return;
+                }
                 root.phase = 2;
             } else if (root.phase === 2 && workspaces.length === 1 && workspaces[0].id === 9) {
+                if (!niri.focusedWindow || niri.focusedWindow.app_id !== "other-app") {
+                    console.error("focused app was not replaced after reconnect");
+                    Qt.exit(1);
+                    return;
+                }
                 console.log("PASS: Niri socket lifecycle");
                 Qt.quit();
             }

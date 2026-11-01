@@ -3,6 +3,7 @@ BarButton 1.0 BarButton.qml
 Clock 1.0 Clock.qml
 Niri 1.0 Niri.qml
 Workspaces 1.0 Workspaces.qml
+FocusedApp 1.0 FocusedApp.qml
 Audio 1.0 Audio.qml
 Tray 1.0 Tray.qml
 TrayItem 1.0 TrayItem.qml
