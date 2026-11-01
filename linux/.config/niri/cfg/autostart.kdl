@@ -1,2 +1,3 @@
-// Desktop services are managed by NixOS; keep Niri startup minimal.
+// Desktop services are managed by NixOS; Niri starts the bar and wallpaper.
+spawn-at-startup "qs" "--no-duplicate" "-c" "bar"
 spawn-sh-at-startup "${XDG_BIN_HOME:-$HOME/.local/bin}/awww-start"

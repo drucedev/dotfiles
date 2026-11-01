@@ -1,6 +1,6 @@
 #!/bin/sh
 # Power menu: pick an action in fuzzel, run it. Esc cancels.
-# Triggered by the waybar power button and Mod+Alt+Space.
+# Triggered by the bar's power button and Mod+Alt+Space.
 
 choice=$(printf '󰌾  Lock\n󰍃  Logout\n󰜉  Restart\n󰐥  Shutdown\n' \
 	| fuzzel --dmenu --prompt='Power…')
