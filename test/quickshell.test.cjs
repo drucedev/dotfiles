@@ -91,6 +91,15 @@ test('workspace snapshots replace state and sort all outputs without losing dupl
     })).map(ws => ws.id), [7]);
     assert.equal(logic.workspaceIcon(workspace(11, 'DP-5', 11)), '');
     assert.equal(logic.workspaceIcon(workspace(11, 'DP-5', 11, { name: '3' })), '3');
+    assert.equal(logic.workspaceIcon(workspace(1, 'DP-5', 1, { name: 'terminal' })), String.fromCodePoint(0xf120));
+    assert.equal(logic.workspaceIcon(workspace(2, 'DP-5', 2, { name: 'code' })), String.fromCodePoint(0xf121));
+    assert.equal(logic.workspaceIcon(workspace(3, 'DP-5', 3, { name: 'apps' })), String.fromCodePoint(0xf003b));
+    assert.equal(logic.workspaceIcon(workspace(4, 'HDMI-A-5', 1, { name: 'discord' })), String.fromCodePoint(0xf066f));
+    assert.equal(logic.workspaceIcon(workspace(5, 'HDMI-A-5', 2, { name: 'browser' })), String.fromCodePoint(0xf059f));
+    assert.equal(logic.workspaceIcon(workspace(8, 'DP-5', 4)), '4');
+    assert.equal(logic.workspaceLabel(workspace(1, 'DP-5', 1, { name: 'terminal' })), 'Ghostty');
+    assert.equal(logic.workspaceLabel(workspace(3, 'DP-5', 3, { name: 'apps' })), 'X, Cliamp, Steam');
+    assert.equal(logic.workspaceLabel(workspace(8, 'HDMI-A-5', 3)), 'Workspace 3');
 });
 
 test('workspace events distinguish active per output from globally focused and do not mutate state', () => {

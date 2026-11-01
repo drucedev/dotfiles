@@ -119,7 +119,8 @@ with Networking, PipeWire, and SystemTray support and Qt 6.8+ for windowed
 popups (provided by NixOS here), NetworkManager's `nmcli`, and the existing Ghostty/btop and power-menu tools.
 
 - Left: Niri workspaces from all outputs, ordered by output and workspace index;
-  click to focus by stable ID. Active workspaces are mauve and empty ones dimmed.
+  click to focus by stable ID. Named workspaces show a fixed icon; other workspaces
+  show their number once created. The focused workspace is mauve.
 - Center: English weekday and 24-hour time; left-click toggles to English date, ISO
   week, and year. No clock tooltip or calendar popup.
 - Right: 16px tray icons, network, audio, CPU, and power. Tray icons support

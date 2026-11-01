@@ -1,3 +1,33 @@
     window-rule {
         clip-to-geometry true
     }
+
+    // App IDs are anchored so Brave's X app is not treated as Brave.
+    window-rule {
+        match app-id=r#"^discord$"#
+        open-on-workspace "discord"
+    }
+
+    window-rule {
+        match app-id=r#"^com\.mitchellh\.ghostty$"#
+        open-on-workspace "terminal"
+    }
+
+    window-rule {
+        match app-id=r#"^com\.t3tools\.T3Code$"#
+        match app-id=r#"^t3code$"#
+        match app-id=r#"^dev\.zed\.Zed$"#
+        open-on-workspace "code"
+    }
+
+    window-rule {
+        match app-id=r#"^brave-browser$"#
+        open-on-workspace "browser"
+    }
+
+    window-rule {
+        match app-id=r#"^brave-x\.com__-Default$"#
+        match app-id=r#"^com\.cliamp\.Cliamp$"#
+        match app-id=r#"^steam$"#
+        open-on-workspace "apps"
+    }
