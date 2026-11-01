@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ZenMoney
+Comment=ZenMoney
+GenericName=Finance
+Exec=brave --app=https://zenmoney.ru/a/
+Icon=zenmoney
+Terminal=false
+StartupNotify=true
+StartupWMClass=brave-zenmoney.ru__a_-Default
+Categories=Office;Finance;
+Keywords=zenmoney;дзен-мани;

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=X
+Comment=X
+GenericName=Social
+Exec=brave --app=https://x.com/
+Icon=x
+Terminal=false
+StartupNotify=true
+StartupWMClass=brave-x.com__-Default
+Categories=Network;
+Keywords=twitter;x.com;
