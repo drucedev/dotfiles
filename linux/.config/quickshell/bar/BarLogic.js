@@ -73,10 +73,25 @@ function workspaceEvent(state, event) {
     return state;
 }
 
+const workspaceMarks = {
+    terminal: { icon: "", label: "Ghostty" },
+    code: { icon: "", label: "T3 Code, Zed" },
+    apps: { icon: "󰀻", label: "X, Cliamp, Steam" },
+    discord: { icon: "󰙯", label: "Discord" },
+    browser: { icon: "󰖟", label: "Brave" }
+};
+
 function workspaceIcon(workspace) {
+    const mark = workspaceMarks[workspace.name];
+    if (mark) return mark.icon;
     const name = workspace.name || String(workspace.idx);
     if (/^[1-9]$/.test(name)) return name;
     return workspace.idx >= 1 && workspace.idx <= 9 ? String(workspace.idx) : "";
+}
+
+function workspaceLabel(workspace) {
+    const mark = workspaceMarks[workspace.name];
+    return mark ? mark.label : "Workspace " + (workspace.name || workspace.idx);
 }
 
 // Use local calendar fields, then UTC arithmetic so DST cannot shift the week.

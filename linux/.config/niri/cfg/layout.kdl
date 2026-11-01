@@ -23,8 +23,11 @@
         struts {}
     }
 
-// Persistent workspaces 1-4, shown in the bar
-workspace "1" { open-on-output "DP-5"; }
-workspace "2" { open-on-output "DP-5"; }
-workspace "3" { open-on-output "DP-5"; }
-workspace "4" { open-on-output "DP-5"; }
+// Named workspaces always exist. Names are unique across outputs, so these are
+// roles; declaration order is the index on that output. Other workspaces are
+// created only when used.
+workspace "terminal" { open-on-output "DP-5"; }
+workspace "code" { open-on-output "DP-5"; }
+workspace "apps" { open-on-output "DP-5"; }
+workspace "discord" { open-on-output "HDMI-A-5"; }
+workspace "browser" { open-on-output "HDMI-A-5"; }

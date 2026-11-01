@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Cliamp
 Comment=Retro terminal music player
-Exec=cliamp
+Exec=ghostty --class=com.cliamp.Cliamp --gtk-single-instance=false -e cliamp
 Icon=cliamp
-Terminal=true
+Terminal=false
+StartupWMClass=com.cliamp.Cliamp
 Type=Application
 Categories=AudioVideo;Audio;Player;
