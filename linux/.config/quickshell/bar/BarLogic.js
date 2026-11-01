@@ -4,10 +4,12 @@ function audioIcon(volume, muted, headphones) {
     return ["", "", ""][Math.min(2, Math.floor(Math.max(0, volume) * 3))];
 }
 
+// strength is Quickshell WifiNetwork.signalStrength (0.0-1.0), not a percentage.
+// Five icons match Waybar format-icons: integer percent / 20, clamped to the last icon.
 function networkIcon(kind, strength) {
     if (kind === "wired") return "󰈀";
     if (kind !== "wifi") return "󰤮";
-    return ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"][Math.round(Math.max(0, Math.min(100, strength)) / 25)];
+    return ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"][Math.min(4, Math.floor(Math.round(Math.max(0, Math.min(1, strength)) * 100) / 20))];
 }
 
 function networkAddress(text) {

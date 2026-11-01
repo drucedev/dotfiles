@@ -12,7 +12,7 @@ ShellRoot {
     QtObject {
         id: accessPoint
         property bool connected: true
-        property int signalStrength: 75
+        property real signalStrength: 0.75
     }
     QtObject { id: networks; property var values: [accessPoint] }
     QtObject {
@@ -38,7 +38,7 @@ ShellRoot {
             if (network.kind !== "disconnected") throw new Error("network disconnected state");
             network.devices = [wifi];
             if (network.kind !== "wifi" || network.text !== "󰤥") throw new Error("Wi-Fi state");
-            accessPoint.signalStrength = 100;
+            accessPoint.signalStrength = 1;
             if (network.text !== "󰤨") throw new Error("signal change must update icon");
             network.refreshAddress();
             network.devices = [wifi, wired];

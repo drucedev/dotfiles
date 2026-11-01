@@ -177,8 +177,9 @@ test('status icons preserve volume/headphone/mute and Wi-Fi signal levels', () =
     assert.equal(logic.audioIcon(0.5, true, true), '');
     assert.equal(logic.networkIcon('wired', 0), '󰈀');
     assert.equal(logic.networkIcon('disconnected', 0), '󰤮');
-    assert.deepEqual([0, 25, 50, 75, 100].map(signal => logic.networkIcon('wifi', signal)),
-        ['󰤯', '󰤟', '󰤢', '󰤥', '󰤨']);
+    // Quickshell reports 0.0-1.0. Waybar steps five format-icons every 20%.
+    assert.deepEqual([0, 0.19, 0.2, 0.39, 0.4, 0.59, 0.6, 0.79, 0.8, 1].map(signal => logic.networkIcon('wifi', signal)),
+        ['󰤯', '󰤯', '󰤟', '󰤟', '󰤢', '󰤢', '󰤥', '󰤥', '󰤨', '󰤨']);
 });
 
 test('network tooltips prefer IPv4, handle IPv6-only, and never show a prefix as an address', () => {
