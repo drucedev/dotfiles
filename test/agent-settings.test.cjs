@@ -115,6 +115,8 @@ test('Pi preserves local packages and updates shared package filters', t => {
     assert.ok(actual.packages.includes('npm:local-provider-package'));
     const package = actual.packages.find(entry => typeof entry === 'object');
     assert.deepEqual(package.extensions, shared[1].extensions);
+    assert.ok(!package.extensions.includes('-packages/pid-review/extensions/index.ts'));
+    assert.ok(!package.extensions.includes('-packages/pid-question/extensions/index.ts'));
     assert.deepEqual(package.skills, []);
     assert.ok(actual.packages.includes(shared[0]));
     assert.deepEqual(actual.localProviderOptions, { temperature: 0.5 });
