@@ -1,0 +1,216 @@
+#!/usr/bin/env node
+// Merge portable preferences into local agent settings, never into Stow links.
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { randomUUID } = require('node:crypto');
+const { isDeepStrictEqual, parseArgs } = require('node:util');
+
+const TEMPLATES = path.resolve(path.dirname(fs.realpathSync(__filename)), '../share/agent-settings');
+const TARGETS = {
+    claude: [['claude.json', '.claude/settings.json']],
+    pi: [['pi.json', '.pi/agent/settings.json']],
+    t3: [
+        ['t3-server.json', '.t3/userdata/settings.json'],
+        ['t3-client.json', '.t3/userdata/client-settings.json'],
+    ],
+};
+
+class SettingsError extends Error {}
+const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+
+function readObject(file, raw) {
+    let value;
+    try {
+        value = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(raw));
+    } catch {
+        // Parser errors can quote credentials; never echo configuration contents.
+        throw new SettingsError(`${file}: invalid JSON or UTF-8`);
+    }
+    if (!isObject(value)) throw new SettingsError(`${file}: settings must be a JSON object`);
+    return value;
+}
+
+function mergeList(local, shared) {
+    const result = structuredClone(local);
+    for (const item of shared) {
+        if (!result.some(entry => isDeepStrictEqual(entry, item))) result.push(structuredClone(item));
+    }
+    return result;
+}
+
+const resourceIdentity = item => typeof item === 'string' ? item.replace(/^[+-]+/, '') : item;
+
+function mergeResources(local, shared) {
+    // +path and -path are opposite choices, not separate resources.
+    let result = structuredClone(local);
+    for (const item of shared) {
+        result = result.filter(entry => !isDeepStrictEqual(resourceIdentity(entry), resourceIdentity(item)));
+        result.push(structuredClone(item));
+    }
+    return result;
+}
+
+const packageSource = package => isObject(package) ? package.source : package;
+
+function mergePackages(local, shared) {
+    const result = structuredClone(local);
+    for (const package of shared) {
+        const source = packageSource(package);
+        const index = result.findIndex(entry => packageSource(entry) === source);
+        if (index === -1) result.push(structuredClone(package));
+        else if (isObject(package)) {
+            const previous = isObject(result[index]) ? result[index] : { source };
+            result[index] = mergeSettings(previous, package, 'packages');
+        }
+        // A plain declaration does not erase existing local resource filters.
+    }
+    return result;
+}
+
+function mergeSettings(local, shared, parent = '') {
+    const result = structuredClone(local);
+    for (const [key, value] of Object.entries(shared)) {
+        const previous = Object.hasOwn(result, key) ? result[key] : undefined;
+        const location = parent ? `${parent}.${key}` : key;
+        let merged;
+        if (isObject(value) && isObject(previous)) merged = mergeSettings(previous, value, location);
+        else if (Array.isArray(value) && Array.isArray(previous)) {
+            if (location === 'permissions.deny') merged = mergeList(previous, value);
+            else if (location === 'packages') merged = mergePackages(previous, value);
+            else if (['extensions', 'skills', 'prompts', 'themes'].includes(location)) {
+                merged = mergeResources(previous, value);
+            } else if (location === 'defaultTools' && value.every(item => typeof item === 'string' && /^[+-]/.test(item))) {
+                merged = mergeResources(previous, value);
+            } else merged = structuredClone(value);
+        } else merged = structuredClone(value);
+        // JSON keys such as __proto__ are data, not prototype mutations.
+        Object.defineProperty(result, key, { value: merged, enumerable: true, writable: true, configurable: true });
+    }
+    return result;
+}
+
+function lstatOptional(file) {
+    try {
+        return fs.lstatSync(file);
+    } catch (error) {
+        if (error.code === 'ENOENT') return null;
+        throw error;
+    }
+}
+
+function readOptional(file) {
+    try {
+        return fs.readFileSync(file);
+    } catch (error) {
+        if (error.code === 'ENOENT') return null;
+        throw error;
+    }
+}
+
+function checkLocalPath(home, target) {
+    // Refuse linked parents too: a folded Stow directory could expose the repo.
+    let current = home;
+    for (const part of path.relative(home, target).split(path.sep)) {
+        current = path.join(current, part);
+        if (lstatOptional(current)?.isSymbolicLink()) {
+            throw new SettingsError(`${current}: refusing a symlink; settings must remain machine-local`);
+        }
+    }
+    const info = lstatOptional(target);
+    if (info && !info.isFile()) throw new SettingsError(`${target}: settings must be a regular file`);
+}
+
+function planUpdate(home, templateName, targetName) {
+    const templatePath = path.join(TEMPLATES, templateName);
+    const template = readObject(templatePath, fs.readFileSync(templatePath));
+    const target = path.join(home, targetName);
+    checkLocalPath(home, target);
+    const original = readOptional(target);
+    const local = original === null ? {} : readObject(target, original);
+    const merged = mergeSettings(local, template);
+    return {
+        target, original,
+        contents: JSON.stringify(merged, null, 2) + '\n',
+        mode: original === null ? 0o600 : fs.statSync(target).mode & 0o7777,
+        changed: original === null || !isDeepStrictEqual(merged, local),
+    };
+}
+
+function checkUnchanged(home, { target, original }) {
+    checkLocalPath(home, target);
+    if (!isDeepStrictEqual(readOptional(target), original)) {
+        throw new SettingsError(`${target}: changed while preparing; stop the app and retry`);
+    }
+}
+
+function writeUpdate(home, update) {
+    const { target, original, contents, mode } = update;
+    checkUnchanged(home, update);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    let backup = null;
+    if (original !== null) {
+        // Exclusive, private files: backups may contain credentials.
+        backup = `${target}.${randomUUID()}.bak`;
+        fs.writeFileSync(backup, original, { flag: 'wx', mode: 0o600 });
+    }
+    const temporary = `${target}.${randomUUID()}.tmp`;
+    const fd = fs.openSync(temporary, 'wx', 0o600);
+    try {
+        try {
+            fs.writeFileSync(fd, contents);
+            fs.fsyncSync(fd);
+            fs.fchmodSync(fd, mode);
+        } finally {
+            fs.closeSync(fd);
+        }
+        checkUnchanged(home, update);
+        fs.renameSync(temporary, target);
+    } finally {
+        fs.rmSync(temporary, { force: true });
+    }
+    return backup;
+}
+
+function main() {
+    const usage = 'Usage: apply-agent-settings [all|claude|pi|t3] [--dry-run]\n' +
+        'Stop affected apps before writing. Local provider/model settings are preserved; symlinks are refused.';
+    let args;
+    try {
+        args = parseArgs({ options: { 'dry-run': { type: 'boolean' }, help: { type: 'boolean', short: 'h' } }, allowPositionals: true });
+    } catch {
+        throw new SettingsError(usage);
+    }
+    if (args.values.help) {
+        console.log(usage);
+        return;
+    }
+    const app = args.positionals[0] ?? 'all';
+    if (args.positionals.length > 1 || (app !== 'all' && !Object.hasOwn(TARGETS, app))) {
+        throw new SettingsError(usage);
+    }
+    const home = fs.realpathSync(os.homedir());
+    const apps = app === 'all' ? Object.keys(TARGETS) : [app];
+    // Validate every selected file before changing any of them.
+    const updates = apps.flatMap(name => TARGETS[name].map(([template, target]) => planUpdate(home, template, target)));
+    for (const update of updates) checkUnchanged(home, update);
+    for (const update of updates) {
+        if (!update.changed) console.log(`Unchanged: ${update.target}`);
+        else if (args.values['dry-run']) {
+            console.log(`Would ${update.original === null ? 'create' : 'update'}: ${update.target}`);
+        } else {
+            const backup = writeUpdate(home, update);
+            console.log(`Applied: ${update.target}`);
+            if (backup) console.log(`  Local backup: ${backup}`);
+        }
+    }
+}
+
+try {
+    main();
+} catch (error) {
+    if (error instanceof SettingsError) console.error(`apply-agent-settings: ${error.message}`);
+    else if (error.code) console.error(`apply-agent-settings: ${error.path || TEMPLATES}: ${error.code}`);
+    else throw error;
+    process.exitCode = 1;
+}

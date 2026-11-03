@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "deny": [
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "EnterWorktree",
+      "ExitWorktree",
+      "NotebookEdit",
+      "Monitor",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "ListAgents",
+      "SendMessage",
+      "ScheduleWakeup",
+      "Agent(statusline-setup)",
+      "Workflow"
+    ]
+  },
+  "disableWorkflows": true,
+  "feedbackDrafts": "off",
+  "enableArtifact": false,
+  "disableAgentView": true,
+  "skillOverrides": {
+    "loop": "off",
+    "workflow-authoring": "off",
+    "plugin-authoring": "off",
+    "keybindings-help": "off",
+    "fewer-permission-prompts": "off",
+    "init": "off"
+  },
+  "theme": "dark",
+  "editorMode": "normal",
+  "preferredNotifChannel": "notifications_disabled"
+}

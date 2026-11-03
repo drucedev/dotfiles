@@ -1,0 +1,32 @@
+{
+  "defaultThinkingLevel": "high",
+  "defaultTools": [
+    "+codemode"
+  ],
+  "hideThinkingBlock": false,
+  "enableInstallTelemetry": false,
+  "theme": "catppuccin-mocha",
+  "quietStartup": "header",
+  "showCacheMissNotices": true,
+  "doubleEscapeAction": "none",
+  "treeFilterMode": "default",
+  "extensions": [
+    "+builtin:codemode",
+    "+builtin:mcp",
+    "-builtin:tool-search"
+  ],
+  "skills": [
+    "-skills/code-review/SKILL.md"
+  ],
+  "packages": [
+    "npm:@upstash/context7-pi",
+    {
+      "source": "ssh://git@github.com/drucedev/pid-mono",
+      "extensions": [
+        "-packages/pid-review/extensions/index.ts",
+        "-packages/pid-subagent/extensions/index.ts",
+        "-packages/pid-question/extensions/index.ts"
+      ]
+    }
+  ]
+}

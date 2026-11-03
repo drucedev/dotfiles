@@ -1,0 +1,17 @@
+{
+  "storageCleanup": {
+    "worktreeAfterDays": 8,
+    "worktreeSettledAfterDays": 8,
+    "worktreeOnMerge": true,
+    "worktreeOnDelete": true,
+    "worktreeUnchanged": true
+  },
+  "enableAgentBrowserAccess": false,
+  "defaultAutoPull": true,
+  "projectSettingsFolded": true,
+  "idleCompaction": "onReturn",
+  "addProjectBaseDirectory": "~/Projects",
+  "branchNamingMode": "semantic",
+  "removeAgentCreditsOnMerge": true,
+  "pullRequestMergeMethod": "squash"
+}
