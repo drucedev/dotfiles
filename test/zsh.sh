@@ -37,6 +37,7 @@ if command -v lsd >/dev/null; then want_ll="lsd -l"; else want_ll="MISSING"; fi
 
 # tool.zsh registers amp's completion only when amp exists — both states are correct
 if command -v amp >/dev/null; then want_amp="_amp"; else want_amp="MISSING"; fi
+if command -v ocr >/dev/null; then want_ocr="_ocr"; else want_ocr="MISSING"; fi
 
 failures=0
 check() { # check <description> <expected> <actual>
@@ -79,6 +80,7 @@ inter="$("${sandbox_env[@]}" zsh -ic '
   echo "RESULT:ll=${aliases[ll]:-MISSING}"
   echo "RESULT:histfile=$HISTFILE"
   echo "RESULT:ampcomp=${_comps[amp]:-MISSING}"
+  echo "RESULT:ocrcomp=${_comps[ocr]:-MISSING}"
   echo "RESULT:uu=${aliases[uu]:-MISSING}"
   echo "RESULT:picm=${aliases[picm]:-MISSING}"
   echo "RESULT:workfn=$(( $+functions[aws-login] ))"
@@ -92,6 +94,8 @@ check "interactive: HISTFILE stays in state home" \
       "$(echo "$inter" | sed -n 's/^RESULT:histfile=//p')"
 check "interactive: amp completion registered for amp" "$want_amp" \
       "$(echo "$inter" | sed -n 's/^RESULT:ampcomp=//p')"
+check "interactive: ocr completion registered for ocr" "$want_ocr" \
+      "$(echo "$inter" | sed -n 's/^RESULT:ocrcomp=//p')"
 check "interactive: picm alias starts pi with codemode" \
       "pi -ne -e builtin:codemode --tools +codemode" \
       "$(echo "$inter" | sed -n 's/^RESULT:picm=//p')"
@@ -107,6 +111,21 @@ if command -v amp >/dev/null; then
   ' 2>/dev/null | grep -cw threads || true)"
   check "amp completion offers subcommands (amp th → threads)" "1" "$offers"
 fi
+
+# OCR's native completion asks the CLI for candidates, then passes them to
+# _describe. Stub only the presentation layer to check real command completion.
+if command -v ocr >/dev/null; then
+  offers="$("${sandbox_env[@]}" zsh -ic '
+    _describe() { print -rl -- "${completions[@]}"; }
+    words=(ocr rev); CURRENT=2
+    _ocr
+  ' 2>/dev/null | grep -c '^review:' || true)"
+  check "ocr completion offers subcommands (ocr rev → review)" "1" "$offers"
+fi
+
+check "tool integrations load without ocr installed" "0" \
+      "$(zsh -fc 'path=(); source "$1"; print $(( $+functions[_ocr] ))' \
+           -- "$REPO_ROOT/common/.config/zsh/tool.zsh")"
 
 uu="$(echo "$inter" | sed -n 's/^RESULT:uu=//p')"
 case "$(uname -s)" in
