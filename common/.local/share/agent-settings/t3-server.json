@@ -6,7 +6,7 @@
     "worktreeOnDelete": true,
     "worktreeUnchanged": true
   },
-  "enableAgentBrowserAccess": false,
+  "enableAgentBrowserAccess": true,
   "defaultAutoPull": true,
   "projectSettingsFolded": true,
   "idleCompaction": "onReturn",

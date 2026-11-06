@@ -15,7 +15,7 @@
   "browserRecordingShowKeyPresses": false,
   "browserRecordingShowMousePresses": false,
   "browserLinkTarget": "system",
-  "browserSearchEngine": "duckduckgo",
+  "browserSearchEngine": "brave",
   "browserCustomSearchUrl": "",
   "browserAutoShowFloatingPreview": true,
   "confirmQuit": "hold",
