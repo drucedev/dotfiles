@@ -3,9 +3,6 @@
 **/.config/zed/prompts
 **/.config/zed/themes
 
-**/.config/herdr/*
-!**/.config/herdr/config.toml
-
 # Only the Pi theme is Stow-managed; settings, backups, and state stay local.
 common/.pi/agent/*
 !common/.pi/agent/themes/

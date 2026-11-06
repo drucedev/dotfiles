@@ -14,7 +14,6 @@ Touch points (a flavor switch touches exactly these):
 | zed | `common/.config/zed/settings.json` | `theme`, `icon_theme` |
 | nvim | `common/.config/nvim/lua/plugins/colorscheme.lua` | `flavour` |
 | Pi | `common/.pi/agent/themes/catppuccin-mocha.json` | whole theme |
-| herdr | `common/.config/herdr/config.toml` | `theme.name` |
 | btop | `common/.config/btop/btop.conf` | vendored theme file |
 | quickshell | `linux/.config/quickshell/bar/Style.qml` | Mocha palette and bar dimensions |
 | fuzzel | `linux/.config/fuzzel/catppuccin-mocha.ini` | `include=` in `fuzzel.ini` |
@@ -42,7 +41,7 @@ System-level config (packages, fonts, services) for the nix machines lives in
 
 ```
 common/    stowed everywhere — zsh modules (~/.config/zsh), starship, ghostty,
-           nvim, btop, fastfetch, zed, mise, pnpm, herdr, cliamp, gh,
+           nvim, btop, fastfetch, zed, mise, pnpm, cliamp, gh,
            agent preference templates and Pi's theme
 mac/       stowed on macOS — gnupg (pinentry-mac), zsh extras (darwin.zsh),
            reproducible launchers for terminal apps
@@ -161,9 +160,7 @@ Pi 1.4.x; Claude preferences include version-dependent built-in controls.
 Pi packages are installed by Pi separately; the Git package requires SSH access.
 
 Instructions, agents, prompts, and shared skills remain owned by `agent-kit`.
-Herdr installs its own Claude hook and Pi extension; this repo does not vendor
-those generated integrations. No agent state directories or T3 keybinding defaults
-are copied.
+No agent state directories or T3 keybinding defaults are copied.
 
 Validate the installer in temporary homes (no real settings are changed):
 
