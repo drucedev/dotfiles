@@ -12,7 +12,8 @@ GNU Stow dotfiles for `$HOME`. System packages, fonts, and services come from
 - `common/` — everywhere: zsh, starship, ghostty, nvim, btop, fastfetch, zed,
   mise, pnpm, cliamp, gh, agent-settings templates, Pi theme
 - `mac/` — macOS: gnupg, zsh extras, terminal-app launchers
-- `linux/` — Linux: niri, quickshell, fuzzel, swaylock, desktop defaults, zsh extras
+- `linux/` — Linux: niri, quickshell, fuzzel, swaylock, desktop defaults,
+  session environment (environment.d), zsh extras
 
 ## Prerequisites
 
