@@ -8,6 +8,20 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "disable_ai": true,
+  "auto_install_extensions": {
+    "java": true,
+    "kotlin": true
+  },
+  "macos": {
+    "lsp": {
+      "jdtls": {
+        "settings": {
+          // Tooling JVM only; imported projects keep their declared Java target.
+          "java_home": "~/.sdkman/candidates/java/25.0.4-amzn"
+        }
+      }
+    }
+  },
   "diff_view_style": "split",
   "proxy": "",
   "cli_default_open_behavior": "existing_window",

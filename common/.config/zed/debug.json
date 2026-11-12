@@ -1,0 +1,9 @@
+[
+  {
+    "adapter": "Java",
+    "request": "attach",
+    "label": "Attach to local JVM :5005",
+    "hostName": "127.0.0.1",
+    "port": 5005
+  }
+]
