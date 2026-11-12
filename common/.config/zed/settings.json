@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
   "diff_view_style": "split",
   "proxy": "",
   "cli_default_open_behavior": "existing_window",
@@ -14,35 +15,41 @@
     "dock": "right"
   },
   "outline_panel": {
+    "button": false,
     "dock": "right"
   },
   "collaboration_panel": {
+    "button": false,
     "dock": "right"
   },
-  "agent": {
-    "enable_feedback": false,
-    "dock": "left",
-    "favorite_models": [],
-    "model_parameters": []
-  },
   "git_panel": {
+    "button": false,
     "dock": "right"
   },
   "terminal": {
+    "button": false,
     "font_family": "JetBrainsMono Nerd Font"
   },
-  "autosave": {
-    "after_delay": {
-      "milliseconds": 1000
-    }
+  "debugger": {
+    "button": true,
+    "dock": "bottom"
   },
+  "title_bar": {
+    "show_sign_in": false,
+    "show_user_menu": false,
+    "show_user_picture": false,
+    "show_onboarding_banner": false
+  },
+  "autosave": "on_focus_change",
   "icon_theme": "Catppuccin Mocha",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
-  "base_keymap": "JetBrains",
+  "base_keymap": "Zed",
+  "vim_mode": true,
   "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_size": 18,
   "theme": "Catppuccin Mocha"
 }
