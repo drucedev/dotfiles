@@ -26,6 +26,11 @@
     }
 
     window-rule {
+        match app-id=r#"^brave-mail\.proton\.me__-Default$"#
+        open-on-workspace "browser"
+    }
+
+    window-rule {
         match app-id=r#"^brave-x\.com__-Default$"#
         match app-id=r#"^com\.cliamp\.Cliamp$"#
         match app-id=r#"^steam$"#
