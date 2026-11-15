@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Grok
+Comment=Grok Bot
+GenericName=AI Chat
+Exec=brave --app=https://grok.com/
+Icon=grok
+Terminal=false
+StartupNotify=true
+StartupWMClass=brave-grok.com__-Default
+Categories=Network;
+Keywords=grok;grok.com;chat;ai;
