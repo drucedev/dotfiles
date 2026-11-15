@@ -17,6 +17,7 @@
         match app-id=r#"^com\.t3tools\.T3Code$"#
         match app-id=r#"^t3code$"#
         match app-id=r#"^dev\.zed\.Zed$"#
+        match app-id=r#"^brave-grok\.com__-Default$"#
         open-on-workspace "code"
     }
 

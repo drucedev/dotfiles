@@ -112,7 +112,7 @@ function appName(window, desktopName) {
 
 const workspaceMarks = {
     terminal: { icon: "", label: "Ghostty" },
-    code: { icon: "", label: "T3 Code, Zed" },
+    code: { icon: "", label: "T3 Code, Zed, Grok" },
     apps: { icon: "󰀻", label: "X, Cliamp, Steam" },
     discord: { icon: "󰙯", label: "Discord" },
     browser: { icon: "󰖟", label: "Brave" }
