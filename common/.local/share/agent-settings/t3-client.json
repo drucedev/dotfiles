@@ -37,8 +37,6 @@
   "fontSmoothing": true,
   "persistComposerContextStrip": false,
   "pullRequestLinksOpenInApp": true,
-  "planModeEnabled": false,
-  "contextWindowMeterEnabled": false,
   "composerRichTextEnabled": true,
   "sendShortcut": "enter",
   "followUpBehavior": "steer",
@@ -51,7 +49,6 @@
     "usage": true,
     "context": true
   },
-  "legacySidebarEnabled": false,
   "sidebarWorkingShelfEnabled": true,
   "sidebarProjectGroupingMode": "repository",
   "sidebarProjectSortOrder": "updated_at",
