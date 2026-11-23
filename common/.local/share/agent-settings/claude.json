@@ -19,6 +19,10 @@
       "Workflow"
     ]
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "disableWorkflows": true,
   "feedbackDrafts": "off",
   "enableArtifact": false,
