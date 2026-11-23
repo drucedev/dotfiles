@@ -50,16 +50,14 @@ reconnects.
 node --test test/quickshell.test.cjs
 ```
 
-The suite needs Node.js and `qs`. It tests the production JavaScript,
-loads the actual QML components and checks windowed tooltips offscreen, drives
-Niri IPC through a temporary Unix socket, and substitutes command executables to
-avoid changing audio, launching applications, or invoking power actions. It does
-not change startup settings. Real device signals, popup placement/submenu rendering,
-and monitor hotplug still need a live desktop check.
+The suite needs Node.js and `qs`. It tests the production JavaScript, loads the
+clock, audio, and tray components offscreen against stand-in objects, and drives
+Niri IPC through a temporary Unix socket. It does not change startup settings.
+Network and CPU services, tooltips, launcher commands, real device signals,
+popup placement/submenu rendering, and monitor hotplug need a live desktop check.
 
 For static checks, run `node --check` on `BarLogic.js` and the test runner, and
 `qmllint -W 0` on the config's QML files with the installed Qt and Quickshell QML
 import directories supplied via `-I`, and `-i linux/.config/quickshell/bar/qmldir`.
 The narrow lint exemptions document Quickshell's runtime-selected PanelWindow
-backend and opaque ObjectModel metadata; the component tests exercise those
-service models at runtime.
+backend and opaque ObjectModel metadata.
