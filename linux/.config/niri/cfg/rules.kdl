@@ -18,6 +18,7 @@
         match app-id=r#"^t3code$"#
         match app-id=r#"^dev\.zed\.Zed$"#
         match app-id=r#"^brave-grok\.com__-Default$"#
+        match app-id=r#"^grok-bot$"#
         open-on-workspace "code"
     }
 
