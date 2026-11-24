@@ -17,7 +17,11 @@ GNU Stow dotfiles for `$HOME`. System packages, fonts, and services come from
 
 ## Prerequisites
 
-- The machine is built from everything-nix (provides `git`, `zsh`, `stow`, and the CLI tools).
+- The machine is built from everything-nix (provides `git`, `zsh`, `stow`, `direnv`, and the CLI tools).
+- On Linux, the repo's flake devShell provides `stow` and `nodejs`; `git`, `zsh`, and
+  `quickshell` stay global. `direnv allow` once to enter it on `cd`, or use
+  `nix develop`. It is Linux-only because nixpkgs-unstable dropped x86_64-darwin, so
+  macOS uses the system `stow`.
 - SSH access to GitHub.
 - A machine-local `~/.gitconfig` (intentionally not tracked):
 
@@ -32,6 +36,7 @@ GNU Stow dotfiles for `$HOME`. System packages, fonts, and services come from
 ```sh
 git clone git@github.com:drucedev/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+direnv allow                     # Linux: enter the devShell (or: nix develop)
 stow --no-folding common mac     # or: common linux — see the table above
 ```
 
@@ -60,6 +65,8 @@ Then open a new shell; zinit installs itself and its plugins on first run.
 Day to day, `uu` pulls everything-nix and rebuilds the machine.
 
 ## Check
+
+On Linux, run these inside the devShell.
 
 ```sh
 ./test/zsh.sh                             # sandboxed shell test

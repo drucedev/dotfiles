@@ -2,7 +2,9 @@
 
 GNU Stow dotfiles. Top-level `common/`, `mac/`, and `linux/` are Stow packages
 mirroring `$HOME`; `docs/`, `test/`, and these notes are not stowed.
-Packages and system services belong in `~/everything-nix`, not here.
+Machine packages and system services belong in `~/everything-nix`, not here.
+The exception is `flake.nix`: a Linux-only devShell (loaded by `.envrc`) holding
+`stow` and `nodejs`; `git`, `zsh`, and `qs` stay global.
 
 ## Conventions
 
@@ -21,6 +23,8 @@ This project's Quickshell bar is inspired by Omarchy Quattro. Behavior and
 static checks: `docs/quickshell.md`.
 
 ## Checks
+
+On Linux, run inside the devShell (`nix develop` or direnv).
 
 ```sh
 ./test/zsh.sh
