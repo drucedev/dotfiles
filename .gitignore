@@ -8,3 +8,6 @@ common/.pi/agent/*
 !common/.pi/agent/themes/
 common/.pi/agent/themes/*
 !common/.pi/agent/themes/catppuccin-mocha.json
+
+# direnv cache for the flake devShell.
+.direnv/
