@@ -13,7 +13,9 @@ BarButton {
         || devices.find(device => device.connected && device.type === DeviceType.Wifi) || null
     readonly property var wifi: device && device.type === DeviceType.Wifi
         ? device.networks.values.find(network => network.connected) : null
-    readonly property string kind: !device ? "disconnected" : device.type === DeviceType.Wired ? "wired" : "wifi"
+    readonly property var radio: ({ enabled: Networking.wifiEnabled, hardware: Networking.wifiHardwareEnabled })
+    readonly property string kind: device ? (device.type === DeviceType.Wired ? "wired" : "wifi")
+        : !radio.enabled || !radio.hardware ? "off" : "disconnected"
     property string address: ""
     property string queriedInterface: ""
     property int generation: 0
@@ -21,7 +23,11 @@ BarButton {
     property bool refreshPending: false
 
     text: Logic.networkIcon(kind, wifi ? wifi.signalStrength : 0)
-    tooltip: device ? device.name + ": " + (address || "Reading IP address…") : "Disconnected"
+    foreground: kind === "off" ? Style.red : Style.text
+    tooltip: Logic.networkTooltip(device ? device.name : "", address, kind, radio)
+    onClicked: button => {
+        if (button === Qt.LeftButton && radio.hardware) Networking.wifiEnabled = !radio.enabled;
+    }
     onHoveredChanged: {
         if (hovered) refreshAddress();
     }

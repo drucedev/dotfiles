@@ -169,3 +169,21 @@ test('ISO week handles year boundaries', () => {
         assert.equal(logic.isoWeek(new Date(year, month, day, 12)), week);
     }
 });
+
+test('network icon distinguishes Wi-Fi off from disconnected', () => {
+    assert.equal(logic.networkIcon('off', 0), '󰤭');
+    assert.equal(logic.networkIcon('disconnected', 0), '󰤮');
+    assert.equal(logic.networkIcon('wired', 0), '󰈀');
+});
+
+test('network tooltip reports Wi-Fi radio state', () => {
+    const radio = (enabled, hardware = true) => ({ enabled, hardware });
+    assert.equal(logic.networkTooltip('wlan0', '10.0.0.2', 'wifi', radio(true)), 'wlan0: 10.0.0.2');
+    assert.equal(logic.networkTooltip('enp1', '', 'wired', radio(true)), 'enp1: Reading IP address…\nWi-Fi: on');
+    assert.equal(logic.networkTooltip('enp1', '10.0.0.3', 'wired', radio(false)), 'enp1: 10.0.0.3\nWi-Fi: off');
+    assert.equal(logic.networkTooltip('enp1', '10.0.0.3', 'wired', radio(true, false)),
+        'enp1: 10.0.0.3\nWi-Fi blocked by hardware switch');
+    assert.equal(logic.networkTooltip('', '', 'off', radio(false)), 'Wi-Fi off');
+    assert.equal(logic.networkTooltip('', '', 'off', radio(true, false)), 'Wi-Fi blocked by hardware switch');
+    assert.equal(logic.networkTooltip('', '', 'disconnected', radio(true)), 'Disconnected');
+});

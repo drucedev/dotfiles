@@ -19,7 +19,10 @@ popups (provided by NixOS here), NetworkManager's `nmcli`, and the existing Ghos
 - Audio: left-click mutes output, right-click mutes the microphone, scroll changes
   output volume in 5% steps, capped at 100%. Muted output is red; hover shows volume.
 - Network: wired/Wi-Fi/disconnected icon and signal strength, preferring connected
-  wired devices when both are up. Hover fetches the interface's IP address.
+  wired devices when both are up. Left-click toggles Wi-Fi (also while wired);
+  with no wired link, disabled Wi-Fi shows a red Wi-Fi-off icon. A hardware
+  rfkill block makes the click a no-op and is named in the tooltip. Hover fetches
+  the interface's IP address and, on wired, shows the Wi-Fi state.
 - CPU: hover shows total/per-core usage sampled every five seconds without
   subprocesses; left-click opens `ghostty -e btop`.
 - Power: left-click opens the existing Fuzzel `power-menu`; hover turns the icon red.

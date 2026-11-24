@@ -8,8 +8,19 @@ function audioIcon(volume, muted, headphones) {
 // Five icons match Waybar format-icons: integer percent / 20, clamped to the last icon.
 function networkIcon(kind, strength) {
     if (kind === "wired") return "󰈀";
+    if (kind === "off") return "󰤭";
     if (kind !== "wifi") return "󰤮";
     return ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"][Math.min(4, Math.floor(Math.round(Math.max(0, Math.min(1, strength)) * 100) / 20))];
+}
+
+// radio is { enabled, hardware }: NetworkManager's Wi-Fi switch and the rfkill hardware switch.
+function networkTooltip(name, address, kind, radio) {
+    const blocked = "Wi-Fi blocked by hardware switch";
+    if (kind === "off") return radio.hardware ? "Wi-Fi off" : blocked;
+    if (kind === "disconnected") return "Disconnected";
+    const line = name + ": " + (address || "Reading IP address…");
+    if (kind !== "wired") return line;
+    return line + "\n" + (radio.hardware ? "Wi-Fi: " + (radio.enabled ? "on" : "off") : blocked);
 }
 
 function networkAddress(text) {
