@@ -63,7 +63,8 @@ Then open a new shell; zinit installs itself and its plugins on first run.
   running session: `niri msg action spawn -- qs --no-duplicate -c bilskirnir`.
 - **Optional** — put a logo at `~/Pictures/logo.png` for fastfetch.
 
-Day to day, `uu` pulls everything-nix and rebuilds the machine.
+Day to day, `uu` pulls everything-nix and rebuilds the Mac; on Thor,
+everything-nix provides `uu-thor`, `uu-ivaldi`, and `uu-all`.
 
 ## Check
 

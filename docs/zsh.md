@@ -6,8 +6,8 @@ all — lives there. `.zshrc` sources the shared modules, then the platform
 extras (`darwin.zsh` or `linux.zsh`) and any optional `work.zsh` supplied by an
 external Stow package, so the installed packages decide the machine's behavior.
 
-The `uu` alias differs per platform: nix-darwin rebuild on macOS, NixOS rebuild
-on Linux.
+On macOS, the `uu` alias pulls everything-nix and rebuilds nix-darwin. The
+NixOS rebuild aliases (`uu-thor`, `uu-ivaldi`, `uu-all`) live in everything-nix.
 
 ## Upgrading a machine from the monolithic layout
 

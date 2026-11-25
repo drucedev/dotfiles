@@ -3,7 +3,3 @@
 export BROWSER=xdg-open
 
 eval "$(direnv hook zsh)"
-
-# Full system upgrade — pull the latest everything-nix (CI bumps flake.lock
-# daily) and rebuild NixOS. $(uname -n) matches the flake output name.
-alias uu='(cd ~/everything-nix && git pull && sudo nixos-rebuild switch --flake .#$(uname -n))'

@@ -13,8 +13,8 @@ SANDBOX_HOME="$SANDBOX/home"
 mkdir -p "$SANDBOX_HOME"
 
 case "$(uname -s)" in
-  Linux)  OS_PACKAGE=linux;  REBUILD=nixos-rebuild ;;
-  Darwin) OS_PACKAGE=mac;    REBUILD=darwin-rebuild ;;
+  Linux)  OS_PACKAGE=linux;  BROWSER_CMD=xdg-open ;;
+  Darwin) OS_PACKAGE=mac;    BROWSER_CMD=open ;;
   *) echo "unsupported OS: $(uname -s)" >&2; exit 2 ;;
 esac
 
@@ -27,7 +27,8 @@ fi
 
 # The caller's shell exports XDG_* and ZDOTDIR; a fresh login would not.
 sandbox_env=(env -u XDG_CONFIG_HOME -u XDG_DATA_HOME -u XDG_STATE_HOME \
-                -u XDG_CACHE_HOME -u XDG_BIN_HOME -u ZDOTDIR HOME="$SANDBOX_HOME")
+                -u XDG_CACHE_HOME -u XDG_BIN_HOME -u ZDOTDIR -u BROWSER \
+                HOME="$SANDBOX_HOME")
 
 # zval <zsh flags> <zsh expression>: the expression's value in a fresh sandboxed
 # shell. A marker separates it from any startup noise; a failing shell prints
@@ -58,8 +59,7 @@ check "login shell sets ZDOTDIR" "$SANDBOX_HOME/.config/zsh" "$(zval -lc '$ZDOTD
 check "interactive shell loads the alias module" 1 "$(zval -ic '$+aliases[v]')"
 check "interactive shell keeps history in the state home" \
       "$SANDBOX_HOME/.local/state/zsh/history" "$(zval -ic '$HISTFILE')"
-case "$(zval -ic '${aliases[uu]}')" in *"$REBUILD"*) extra=sourced ;; *) extra=missing ;; esac
-check "interactive shell sources the $OS_PACKAGE extra" sourced "$extra"
+check "interactive shell sources the $OS_PACKAGE extra" "$BROWSER_CMD" "$(zval -ic '$BROWSER')"
 
 # nixgc with stubs for sudo, nix-env and nix-collect-garbage. The nix-env stub
 # logs argv with %q and lists 15 generations with 3 current, as after a rollback.
