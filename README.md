@@ -12,7 +12,7 @@ GNU Stow dotfiles for `$HOME`. System packages, fonts, and services come from
 - `common/` — everywhere: zsh, starship, ghostty, nvim, btop, fastfetch, zed,
   mise, pnpm, cliamp, gh, agent-settings templates, Pi theme
 - `mac/` — macOS: gnupg, zsh extras, terminal-app launchers
-- `linux/` — Linux: niri, quickshell, fuzzel, swaylock, desktop defaults,
+- `linux/` — Linux: niri, fuzzel, swaylock, desktop defaults,
   session environment (environment.d), zsh extras
 
 ## Prerequisites
@@ -58,8 +58,9 @@ Then open a new shell; zinit installs itself and its plugins on first run.
 
   Details: [docs/agent-settings.md](docs/agent-settings.md).
 - **macOS** — `install-macos-apps` creates the Cliamp launcher in `~/Applications`.
-- **Linux** — Niri starts the Quickshell bar at login; in a running session:
-  `niri msg action spawn -- qs --no-duplicate -c bar`.
+- **Linux** — install the [Bilskirnir](https://github.com/drucedev/bilskirnir)
+  Quickshell bar (its README has the one-liner); Niri starts it at login. In a
+  running session: `niri msg action spawn -- qs --no-duplicate -c bilskirnir`.
 - **Optional** — put a logo at `~/Pictures/logo.png` for fastfetch.
 
 Day to day, `uu` pulls everything-nix and rebuilds the machine.
@@ -71,7 +72,6 @@ On Linux, run these inside the devShell.
 ```sh
 ./test/zsh.sh                             # sandboxed shell test
 node --test test/agent-settings.test.cjs  # temporary homes only
-node --test test/quickshell.test.cjs      # Linux, needs qs
 ```
 
 ## More
@@ -79,4 +79,3 @@ node --test test/quickshell.test.cjs      # Linux, needs qs
 - [docs/theme.md](docs/theme.md) — Catppuccin Mocha touch points
 - [docs/zsh.md](docs/zsh.md) — zsh layout, upgrading old machines
 - [docs/agent-settings.md](docs/agent-settings.md) — what `apply-agent-settings` does
-- [docs/quickshell.md](docs/quickshell.md) — the Linux status bar

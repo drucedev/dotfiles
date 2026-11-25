@@ -19,8 +19,9 @@ The exception is `flake.nix`: a Linux-only devShell (loaded by `.envrc`) holding
 
 ## Quickshell
 
-This project's Quickshell bar is inspired by Omarchy Quattro. Behavior and
-static checks: `docs/quickshell.md`.
+The Quickshell bar lives in its own repo, Bilskirnir
+(`~/.config/quickshell/bilskirnir`); this repo only starts it from
+`linux/.config/niri/cfg/autostart.kdl`.
 
 ## Checks
 
@@ -29,5 +30,4 @@ On Linux, run inside the devShell (`nix develop` or direnv).
 ```sh
 ./test/zsh.sh
 node --test test/agent-settings.test.cjs
-node --test test/quickshell.test.cjs   # Linux, needs qs
 ```

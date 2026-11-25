@@ -13,7 +13,7 @@ Touch points (a flavor switch touches exactly these):
 | nvim | `common/.config/nvim/lua/plugins/colorscheme.lua` | `flavour` |
 | Pi | `common/.pi/agent/themes/catppuccin-mocha.json` | whole theme |
 | btop | `common/.config/btop/btop.conf` | vendored theme file |
-| quickshell | `linux/.config/quickshell/bar/Style.qml` | Mocha palette and bar dimensions |
+| quickshell | `Style.qml` in the [Bilskirnir](https://github.com/drucedev/bilskirnir) repo | Mocha palette and bar dimensions |
 | fuzzel | `linux/.config/fuzzel/catppuccin-mocha.ini` | `include=` in `fuzzel.ini` |
 | swaylock | `linux/.config/swaylock/config` | whole file |
 | niri | `linux/.config/niri/cfg/layout.kdl` | focus-ring colors |
